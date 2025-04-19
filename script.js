@@ -30,13 +30,40 @@ function flattenCards(category) {
     for (const subcategory in flashcards.vocabulary) {
       if (Array.isArray(flashcards.vocabulary[subcategory])) {
         cards = cards.concat(flashcards.vocabulary[subcategory]);
+      } else if (typeof flashcards.vocabulary[subcategory] === 'object') {
+        // Handle nested subcategories (like nature.animals)
+        for (const subsub in flashcards.vocabulary[subcategory]) {
+          if (Array.isArray(flashcards.vocabulary[subcategory][subsub])) {
+            cards = cards.concat(flashcards.vocabulary[subcategory][subsub]);
+          }
+        }
       }
     }
     return cards;
   }
   
-  // Handle other categories
+  // Handle other categories that might have nested structure
+  if (typeof flashcards[category] === 'object' && !Array.isArray(flashcards[category])) {
+    let cards = [];
+    for (const subcategory in flashcards[category]) {
+      if (Array.isArray(flashcards[category][subcategory])) {
+        cards = cards.concat(flashcards[category][subcategory]);
+      }
+    }
+    return cards;
+  }
+  
+  // Handle simple array categories
   return Array.isArray(flashcards[category]) ? flashcards[category] : [];
+}
+
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
 }
 
 function startSession() {
@@ -50,14 +77,32 @@ function startSession() {
   let allCards = flattenCards(category);
   let availableCards = allCards.filter(c => c && c.id && !learnedCards.includes(c.id));
 
+  if (availableCards.length === 0) {
+    alert("No cards available in this category or all cards have been learned!");
+    return;
+  }
+
+  // Initialize progress for new cards
   availableCards.forEach(card => {
     if (!progress[card.id]) {
       progress[card.id] = { box: 5, streak: 0 };
     }
   });
 
-  availableCards.sort((a, b) => progress[b.id].box - progress[a.id].box);
-  sessionCards = availableCards.slice(0, count);
+  // Shuffle first to ensure randomness
+  availableCards = shuffleArray(availableCards);
+  
+  // Then sort by box number (higher boxes first)
+  availableCards.sort((a, b) => {
+    const boxA = progress[a.id]?.box || 5;
+    const boxB = progress[b.id]?.box || 5;
+    return boxB - boxA;
+  });
+
+  sessionCards = availableCards.slice(0, Math.min(count, availableCards.length));
+  
+  console.log(`Starting session with ${sessionCards.length} cards from ${category}`);
+  console.log("Session cards:", sessionCards);
 
   document.getElementById("setup").classList.add("hidden");
   document.getElementById("flashcardSection").classList.remove("hidden");
