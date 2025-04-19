@@ -1,2 +1,2 @@
-Welcome to yet another projet of mine. Enjoy you visit! 
-+Don't forget to check out ernieandflo.com+
+**Welcome** to yet another projet of mine. I hope you enjoy you visit! 
+$\textsf{{\color[rgb]{0.0, 0.0, 1.0}Don}{\color[rgb]{0.1, 0.0, 0.9}'t~ }{\color[rgb]{0.2, 0.0, 0.8}for}{\color[rgb]{0.3, 0.0, 0.7}get }{\color[rgb]{0.4, 0.0, 0.6}to check~}{\color[rgb]{0.5, 0.0, 0.5}out ern}{\color[rgb]{0.6, 0.0, 0.4}iean}{\color[rgb]{0.7, 0.0, 0.3}dfl}{\color[rgb]{0.8, 0.0, 0.2}o.c}{\color[rgb]{0.9, 0.0, 0.1}om}{\color[rgb]{1.0, 0.0, 0.0}.}}$
