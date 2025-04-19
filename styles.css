@@ -23,6 +23,7 @@ body {
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
 }
 
 h1 {
@@ -33,20 +34,40 @@ h1 {
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-.nav-buttons {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+/* Centered Home Button Styles */
+.home-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
 .home-button {
   width: auto;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 2rem;
   background: var(--secondary);
   color: var(--dark);
-  margin: 0;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.home-button:hover {
+  background: #FFB300;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Remove the old nav-buttons styles */
+.nav-buttons {
+  display: none;
+}
+
+/* Rest of your existing CSS remains exactly the same */
 h3 {
   text-align: center;
   color: var(--primary-dark);
@@ -124,9 +145,6 @@ button:hover {
   background: var(--primary);
 }
 
-/* Previous CSS remains the same until #inputSection */
-
-/* Add these new styles for the word rearrangement feature */
 .word-pool {
   background: #f0f4f8;
   padding: 1rem;
@@ -172,8 +190,6 @@ button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-
-/* Rest of the previous CSS remains the same */
 
 #inputSection {
   margin: 1rem 0;
