@@ -170,9 +170,8 @@ function showNextCard() {
   }
 }
 
-// Rest of the JavaScript remains the same
-
 function submitAnswer() {
+  // Early return if no current card
   if (!currentCard) {
     alert("No active card. Returning to home screen.");
     location.reload();
@@ -182,51 +181,54 @@ function submitAnswer() {
   let userAnswer = "";
   const flashcard = document.getElementById("flashcard");
 
-  if (currentCard.type === "mcq") {
-    userAnswer = document.getElementById("answerInput")?.dataset.answer || "";
-  } else if (currentCard.type === "fill") {
-    userAnswer = document.getElementById("textAnswer")?.value.trim().toLowerCase() || "";
-  } else if (currentCard.type === "shuffled") {
-    userAnswer = document.getElementById("shuffledOutput")?.innerText.trim().toLowerCase() || "";
-  }
-  let userAnswer = "";
-  const flashcard = document.getElementById("flashcard");
+  try {
+    // Get user's answer based on card type
+    if (currentCard.type === "mcq") {
+      userAnswer = document.getElementById("answerInput")?.dataset.answer?.toLowerCase() || "";
+    } else if (currentCard.type === "fill") {
+      const input = document.getElementById("textAnswer");
+      userAnswer = input?.value.trim().toLowerCase() || "";
+    } else if (currentCard.type === "shuffled") {
+      const output = document.getElementById("shuffledOutput");
+      userAnswer = output?.innerText.trim().toLowerCase() || "";
+    }
 
-  if (currentCard.type === "mcq") {
-    userAnswer = document.getElementById("answerInput")?.dataset.answer || "";
-  } else if (currentCard.type === "fill") {
-    userAnswer = document.getElementById("textAnswer").value.trim().toLowerCase();
-  } else if (currentCard.type === "shuffled") {
-    userAnswer = document.getElementById("shuffledOutput").innerText.trim().toLowerCase();
-  }
+    // Validate answer exists
+    if (userAnswer === "") {
+      throw new Error("No answer provided");
+    }
 
-  const correct = userAnswer === currentCard.answer.toLowerCase();
-  const cardProgress = progress[currentCard.id];
+    const correct = userAnswer === currentCard.answer.toLowerCase();
+    const cardProgress = progress[currentCard.id] || { box: 5, streak: 0 };
 
-  if (correct) {
-    flashcard.classList.add("correct");
-    score += 10 * cardProgress.box; // More points for higher boxes
-    streak++;
-    maxStreak = Math.max(maxStreak, streak);
-    
-    cardProgress.box = Math.max(1, cardProgress.box - 1);
-    cardProgress.streak++;
-    
+    // Handle correct/incorrect answers
+    if (correct) {
+      flashcard.classList.add("correct");
+      score += 10 * cardProgress.box;
+      streak++;
+      maxStreak = Math.max(maxStreak, streak);
+      
+      cardProgress.box = Math.max(1, cardProgress.box - 1);
+      cardProgress.streak++;
+    } else {
+      flashcard.classList.add("incorrect");
+      streak = 0;
+      cardProgress.box = Math.min(BOXES, cardProgress.box + 1);
+      cardProgress.streak = 0;
+    }
+
+    // Update progress and show feedback
+    progress[currentCard.id] = cardProgress;
     setTimeout(() => {
-      flashcard.classList.remove("correct");
-      showFeedback(true, currentCard.answer);
+      flashcard.classList.remove(correct ? "correct" : "incorrect");
+      showFeedback(correct, currentCard.answer);
     }, 500);
-  } else {
+
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("Error processing your answer. Please try again.");
     flashcard.classList.add("incorrect");
-    streak = 0;
-    
-    cardProgress.box = Math.min(BOXES, cardProgress.box + 1);
-    cardProgress.streak = 0;
-    
-    setTimeout(() => {
-      flashcard.classList.remove("incorrect");
-      showFeedback(false, currentCard.answer);
-    }, 500);
+    setTimeout(() => flashcard.classList.remove("incorrect"), 500);
   }
 }
 
