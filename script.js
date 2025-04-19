@@ -1,7 +1,10 @@
-// Remove the hardcoded 'flashcards' object and replace with:
 let flashcards = {};
+const BOXES = 5;
+let progress = JSON.parse(localStorage.getItem("leitnerProgress")) || {};
+let learnedCards = JSON.parse(localStorage.getItem("learnedCards")) || [];
+let sessionCards = [], cardIndex = 0, currentCard;
+let score = 0, streak = 0, maxStreak = 0;
 
-// Add this at the start of your code:
 async function loadFlashcards() {
   try {
     const response = await fetch('flashcards.json');
@@ -10,7 +13,6 @@ async function loadFlashcards() {
     console.log("Flashcards loaded successfully!");
   } catch (error) {
     console.error("Error loading flashcards:", error);
-    // Fallback to a small hardcoded set if JSON fails
     flashcards = {
       vocabulary: [
         { id: 1, question: "What is 'bread' in Kirundi?", answer: "umugati", type: "fill" }
@@ -19,11 +21,23 @@ async function loadFlashcards() {
   }
 }
 
-const BOXES = 5;
-let progress = JSON.parse(localStorage.getItem("leitnerProgress")) || {};
-let learnedCards = JSON.parse(localStorage.getItem("learnedCards")) || [];
-let sessionCards = [], cardIndex = 0, currentCard;
-let score = 0, streak = 0, maxStreak = 0;
+function flattenCards(category) {
+  if (!flashcards[category]) return [];
+  
+  // Handle vocabulary's nested structure
+  if (category === 'vocabulary') {
+    let cards = [];
+    for (const subcategory in flashcards.vocabulary) {
+      if (Array.isArray(flashcards.vocabulary[subcategory])) {
+        cards = cards.concat(flashcards.vocabulary[subcategory]);
+      }
+    }
+    return cards;
+  }
+  
+  // Handle other categories
+  return Array.isArray(flashcards[category]) ? flashcards[category] : [];
+}
 
 function startSession() {
   score = 0;
@@ -33,22 +47,9 @@ function startSession() {
   const category = document.getElementById("categorySelect").value;
   const count = parseInt(document.getElementById("cardCountSelect").value);
 
-  // 1. Flatten nested categories into a single array
-  let allCards = [];
-  if (category === 'vocabulary') {
-    // Handle vocabulary subcategories
-    for (const subcategory in flashcards.vocabulary) {
-      allCards = allCards.concat(flashcards.vocabulary[subcategory]);
-    }
-  } else {
-    // Handle non-vocabulary categories (verbs, questions)
-    allCards = flashcards[category] || [];
-  }
+  let allCards = flattenCards(category);
+  let availableCards = allCards.filter(c => c && c.id && !learnedCards.includes(c.id));
 
-  // 2. Filter out learned cards
-  let availableCards = allCards.filter(c => !learnedCards.includes(c.id));
-
-  // Rest of your existing code...
   availableCards.forEach(card => {
     if (!progress[card.id]) {
       progress[card.id] = { box: 5, streak: 0 };
@@ -67,91 +68,70 @@ function startSession() {
   showNextCard();
 }
 
-// Previous JavaScript remains the same until the showNextCard function
-
 function showNextCard() {
-  if (cardIndex >= sessionCards.length || !sessionCards[cardIndex]) {
-    endSession();
-    return;
-  }
-
-  currentCard = sessionCards[cardIndex];
-  if (!currentCard.question) {
-    console.error("Card has no question:", currentCard);
+  // Skip invalid cards
+  while (cardIndex < sessionCards.length) {
+    currentCard = sessionCards[cardIndex];
+    
+    if (currentCard && currentCard.question) {
+      const flashcard = document.getElementById("flashcard");
+      flashcard.textContent = currentCard.question;
+      flashcard.className = "fade-in";
+      updateProgressDisplay();
+      setupInputSection();
+      return;
+    }
+    
+    console.warn("Skipping invalid card:", currentCard);
     cardIndex++;
-    showNextCard(); // Skip broken cards
-    return;
   }
 
-  currentCard = sessionCards[cardIndex];
-  const flashcard = document.getElementById("flashcard");
-  flashcard.textContent = currentCard.question;
-  flashcard.className = "fade-in";
-  
-  updateProgressDisplay();
+  // If no valid cards left
+  endSession();
+}
 
+function setupInputSection() {
   const inputSection = document.getElementById("inputSection");
   inputSection.innerHTML = "";
 
-  if (currentCard.type === "fill") {
-    inputSection.innerHTML = '<input type="text" id="textAnswer" placeholder="Type your answer..." autofocus>';
-  } else if (currentCard.type === "mcq") {
-    currentCard.options.forEach(opt => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-      btn.onclick = () => {
-        document.querySelectorAll("#inputSection button").forEach(b => b.classList.remove("selected"));
-        btn.classList.add("selected");
-        document.getElementById("answerInput")?.remove();
-        const hidden = document.createElement("input");
-        hidden.type = "hidden";
-        hidden.id = "answerInput";
-        hidden.dataset.answer = opt;
-        inputSection.appendChild(hidden);
-      };
-      inputSection.appendChild(btn);
-    });
-  } else if (currentCard.type === "shuffled") {
-    // Create word pool container
-    const wordPool = document.createElement("div");
-    wordPool.className = "word-pool";
-    wordPool.innerHTML = '<div class="word-pool-title">Available Words</div>';
-    
-    // Create sentence builder container
-    const sentenceBuilder = document.createElement("div");
-    sentenceBuilder.className = "sentence-builder";
-    sentenceBuilder.innerHTML = '<div class="sentence-builder-title">Build Your Sentence Here</div>';
-    const outputArea = document.createElement("div");
-    outputArea.id = "shuffledOutput";
-    sentenceBuilder.appendChild(outputArea);
-    
-    // Add shuffled words to word pool
-    const shuffled = [...currentCard.parts].sort(() => 0.5 - Math.random());
-    shuffled.forEach(word => {
-      const span = document.createElement("span");
-      span.className = "word-token";
-      span.textContent = word;
-      span.onclick = () => {
-        span.remove();
-        outputArea.appendChild(span);
-        // Add space between words if needed
-        if (outputArea.children.length > 1) {
-          outputArea.insertBefore(document.createTextNode(" "), span);
-        }
-      };
-      wordPool.appendChild(span);
-    });
-    
-    // Add both containers to input section
-    inputSection.appendChild(wordPool);
-    inputSection.appendChild(sentenceBuilder);
-    
-    // Add reset button
-    const resetBtn = document.createElement("button");
-    resetBtn.textContent = "Reset Words";
-    resetBtn.onclick = () => {
-      outputArea.innerHTML = '';
+  if (!currentCard) return;
+
+  switch (currentCard.type) {
+    case "fill":
+      inputSection.innerHTML = '<input type="text" id="textAnswer" placeholder="Type your answer..." autofocus>';
+      break;
+      
+    case "mcq":
+      currentCard.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => {
+          document.querySelectorAll("#inputSection button").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          document.getElementById("answerInput")?.remove();
+          const hidden = document.createElement("input");
+          hidden.type = "hidden";
+          hidden.id = "answerInput";
+          hidden.dataset.answer = opt;
+          inputSection.appendChild(hidden);
+        };
+        inputSection.appendChild(btn);
+      });
+      break;
+      
+    case "shuffled":
+      const wordPool = document.createElement("div");
+      wordPool.className = "word-pool";
       wordPool.innerHTML = '<div class="word-pool-title">Available Words</div>';
+      
+      const sentenceBuilder = document.createElement("div");
+      sentenceBuilder.className = "sentence-builder";
+      sentenceBuilder.innerHTML = '<div class="sentence-builder-title">Build Your Sentence Here</div>';
+      const outputArea = document.createElement("div");
+      outputArea.id = "shuffledOutput";
+      sentenceBuilder.appendChild(outputArea);
+      
+      const shuffled = [...currentCard.parts].sort(() => 0.5 - Math.random());
       shuffled.forEach(word => {
         const span = document.createElement("span");
         span.className = "word-token";
@@ -165,13 +145,35 @@ function showNextCard() {
         };
         wordPool.appendChild(span);
       });
-    };
-    inputSection.appendChild(resetBtn);
+      
+      inputSection.appendChild(wordPool);
+      inputSection.appendChild(sentenceBuilder);
+      
+      const resetBtn = document.createElement("button");
+      resetBtn.textContent = "Reset Words";
+      resetBtn.onclick = () => {
+        outputArea.innerHTML = '';
+        wordPool.innerHTML = '<div class="word-pool-title">Available Words</div>';
+        shuffled.forEach(word => {
+          const span = document.createElement("span");
+          span.className = "word-token";
+          span.textContent = word;
+          span.onclick = () => {
+            span.remove();
+            outputArea.appendChild(span);
+            if (outputArea.children.length > 1) {
+              outputArea.insertBefore(document.createTextNode(" "), span);
+            }
+          };
+          wordPool.appendChild(span);
+        });
+      };
+      inputSection.appendChild(resetBtn);
+      break;
   }
 }
 
 function submitAnswer() {
-  // Early return if no current card
   if (!currentCard) {
     alert("No active card. Returning to home screen.");
     location.reload();
@@ -182,32 +184,28 @@ function submitAnswer() {
   const flashcard = document.getElementById("flashcard");
 
   try {
-    // Get user's answer based on card type
-    if (currentCard.type === "mcq") {
-      userAnswer = document.getElementById("answerInput")?.dataset.answer?.toLowerCase() || "";
-    } else if (currentCard.type === "fill") {
-      const input = document.getElementById("textAnswer");
-      userAnswer = input?.value.trim().toLowerCase() || "";
-    } else if (currentCard.type === "shuffled") {
-      const output = document.getElementById("shuffledOutput");
-      userAnswer = output?.innerText.trim().toLowerCase() || "";
+    switch (currentCard.type) {
+      case "mcq":
+        userAnswer = document.getElementById("answerInput")?.dataset.answer?.toLowerCase() || "";
+        break;
+      case "fill":
+        userAnswer = document.getElementById("textAnswer")?.value.trim().toLowerCase() || "";
+        break;
+      case "shuffled":
+        userAnswer = document.getElementById("shuffledOutput")?.innerText.trim().toLowerCase() || "";
+        break;
     }
 
-    // Validate answer exists
-    if (userAnswer === "") {
-      throw new Error("No answer provided");
-    }
+    if (userAnswer === "") throw new Error("No answer provided");
 
     const correct = userAnswer === currentCard.answer.toLowerCase();
     const cardProgress = progress[currentCard.id] || { box: 5, streak: 0 };
 
-    // Handle correct/incorrect answers
     if (correct) {
       flashcard.classList.add("correct");
       score += 10 * cardProgress.box;
       streak++;
       maxStreak = Math.max(maxStreak, streak);
-      
       cardProgress.box = Math.max(1, cardProgress.box - 1);
       cardProgress.streak++;
     } else {
@@ -217,7 +215,6 @@ function submitAnswer() {
       cardProgress.streak = 0;
     }
 
-    // Update progress and show feedback
     progress[currentCard.id] = cardProgress;
     setTimeout(() => {
       flashcard.classList.remove(correct ? "correct" : "incorrect");
@@ -251,9 +248,9 @@ function continueSession() {
   document.querySelector(".feedback")?.remove();
   document.getElementById("submit").disabled = false;
   
-  const cardProgress = progress[currentCard.id];
-  if (cardProgress.box === 1 && cardProgress.streak >= 5) {
-    if (!learnedCards.includes(currentCard.id)) {
+  const cardProgress = progress[currentCard?.id];
+  if (cardProgress?.box === 1 && cardProgress?.streak >= 5) {
+    if (currentCard?.id && !learnedCards.includes(currentCard.id)) {
       learnedCards.push(currentCard.id);
       delete progress[currentCard.id];
       showMasteryMessage();
@@ -289,7 +286,6 @@ function updateProgressDisplay() {
     scoreDisplay.textContent = `Score: ${score} | Streak: ${streak} (Max: ${maxStreak})`;
   }
   
-  // Update box indicator
   if (currentCard && progress[currentCard.id]) {
     const boxIndicator = document.querySelector(".box-indicator");
     if (boxIndicator) {
@@ -377,9 +373,19 @@ function reintroduceAll() {
 }
 
 function getCardById(id) {
-  for (let cat in flashcards) {
-    const found = flashcards[cat].find(card => card.id === id);
-    if (found) return found;
+  // Search through all categories and subcategories
+  for (const category in flashcards) {
+    if (Array.isArray(flashcards[category])) {
+      const found = flashcards[category].find(card => card.id === id);
+      if (found) return found;
+    } else if (typeof flashcards[category] === 'object') {
+      for (const subcategory in flashcards[category]) {
+        if (Array.isArray(flashcards[category][subcategory])) {
+          const found = flashcards[category][subcategory].find(card => card.id === id);
+          if (found) return found;
+        }
+      }
+    }
   }
   return null;
 }
@@ -389,7 +395,7 @@ function saveProgress() {
   localStorage.setItem("learnedCards", JSON.stringify(learnedCards));
 }
 
-// Initialize the app like this:
+// Initialize the app
 document.addEventListener('DOMContentLoaded', async function() {
-  await loadFlashcards(); // Wait for flashcards to load
+  await loadFlashcards();
 });
