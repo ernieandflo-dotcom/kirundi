@@ -1,0 +1,407 @@
+:root {
+  --primary: #4CAF50;
+  --primary-dark: #388E3C;
+  --secondary: #FFC107;
+  --accent: #FF5722;
+  --light: #f8f9fa;
+  --dark: #343a40;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: rgba(255,255,255,0.95);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h3 {
+  text-align: center;
+  color: var(--primary-dark);
+}
+
+label {
+  display: block;
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.hidden {
+  display: none;
+}
+
+#flashcard {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#flashcard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--primary);
+}
+
+/* Previous CSS remains the same until #inputSection */
+
+/* Add these new styles for the word rearrangement feature */
+.word-pool {
+  background: #f0f4f8;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.word-pool-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.sentence-builder {
+  background: #e1f5fe;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  min-height: 60px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.sentence-builder-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.word-token {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 20px;
+  margin: 0.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.word-token:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Rest of the previous CSS remains the same */
+
+#inputSection {
+  margin: 1rem 0;
+}
+
+#inputSection input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+#inputSection button {
+  background: var(--secondary);
+  color: var(--dark);
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+}
+
+#inputSection button:hover {
+  background: #FFB300;
+}
+
+#inputSection span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--light);
+  border-radius: 20px;
+  margin: 0.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+#inputSection span:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+#learnedCardsList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 1.5rem 0;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: white;
+}
+
+.learned-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.learned-card:hover {
+  background: #f0f4f8;
+}
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.score-display {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.box-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.box {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.box.active {
+  background: var(--primary);
+  transform: scale(1.1);
+}
+
+.feedback {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 100;
+  width: 80%;
+  max-width: 400px;
+}
+
+.correct-feedback {
+  border-top: 6px solid var(--primary);
+}
+
+.incorrect-feedback {
+  border-top: 6px solid var(--accent);
+}
+
+.feedback h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.feedback button {
+  margin-top: 1.5rem;
+}
+
+.mastery-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 100;
+  width: 80%;
+  max-width: 400px;
+  border-top: 6px solid var(--secondary);
+}
+
+.mastery-message h3 {
+  color: var(--secondary);
+  font-size: 1.8rem;
+  margin-top: 0;
+}
+
+.mastery-message button {
+  background: var(--secondary);
+  color: var(--dark);
+}
+
+.session-result {
+  text-align: center;
+  padding: 2rem;
+}
+
+.session-result h2 {
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.session-result p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.selected {
+  background: var(--primary) !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+}
+
+.correct {
+  animation: correct 0.5s ease;
+  background: #E8F5E9 !important;
+}
+
+.incorrect {
+  animation: incorrect 0.5s ease;
+  background: #FFEBEE !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes correct {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes incorrect {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  #flashcard {
+    min-height: 120px;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .box {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+}

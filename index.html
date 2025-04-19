@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akirundi Learning App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📚 Akirundi Flashcards</h1>
+    <div id="setup">
+      <label for="categorySelect">Choose a category:</label>
+      <select id="categorySelect">
+        <option value="vocabulary">Vocabulary</option>
+        <option value="verbs">Verbs</option>
+        <option value="questions">Useful Questions</option>
+      </select>
+
+      <label for="cardCountSelect">Number of cards:</label>
+      <select id="cardCountSelect">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+      </select>
+
+      <button onclick="startSession()">Start Learning</button>
+      <button onclick="showLearned()">Manage Learned Cards</button>
+    </div>
+
+    <div id="flashcardSection" class="hidden">
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="score-display">Score: 0 | Streak: 0 (Max: 0)</div>
+      <div class="box-indicator"></div>
+      
+      <div id="flashcard"></div>
+      <div id="inputSection"></div>
+      <button id="submit" onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <div id="learnedSection" class="hidden">
+      <h3>🎓 Learned Cards</h3>
+      <div id="learnedCardsList"></div>
+      <button onclick="reintroduceSelected()">Reintroduce Selected</button>
+      <button onclick="reintroduceAll()">Reintroduce All</button>
+      <button onclick="location.reload()">Back to Main</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
