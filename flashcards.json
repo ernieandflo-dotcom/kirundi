@@ -60,6 +60,14 @@
         { "id": 23, "question": "What is 'How much does this cost?'", "answer": "Ni bangahe?", "type": "fill" }
       ]
     },
+    "numbers": [
+      { "id": 25, "question": "What is 'Monday' in Kirundi?", "answer": "Kuwa mbere", "type": "fill" }
+    ],
+    "nature": {
+      "animals": [
+        { "id": 26, "question": "What is 'bird' in Kirundi?", "answer": "inyoni", "type": "fill" }
+      ]
+    },
     "fun": [
       { "id": 24, "question": "What is 'laughter' in Kirundi?", "answer": "guseka", "type": "fill" }
     ]
