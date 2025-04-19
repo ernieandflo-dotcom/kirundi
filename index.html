@@ -9,9 +9,6 @@
 <body>
   <div class="container">
     <h1>📚 Akirundi Flashcards</h1>
-    <div class="nav-buttons">
-      <button onclick="location.reload()" class="home-button">🏠 Home</button>
-    </div>
     <div id="setup">
       <label for="categorySelect">Choose a category:</label>
       <select id="categorySelect">
@@ -42,6 +39,10 @@
       <div id="flashcard"></div>
       <div id="inputSection"></div>
       <button id="submit" onclick="submitAnswer()">Submit</button>
+      <!-- Centered Home Button -->
+      <div class="home-button-container">
+        <button onclick="location.reload()" class="home-button">🏠 Home</button>
+      </div>
     </div>
 
     <div id="learnedSection" class="hidden">
