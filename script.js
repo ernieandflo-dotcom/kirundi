@@ -70,8 +70,16 @@ function startSession() {
 // Previous JavaScript remains the same until the showNextCard function
 
 function showNextCard() {
-  if (cardIndex >= sessionCards.length) {
+  if (cardIndex >= sessionCards.length || !sessionCards[cardIndex]) {
     endSession();
+    return;
+  }
+
+  currentCard = sessionCards[cardIndex];
+  if (!currentCard.question) {
+    console.error("Card has no question:", currentCard);
+    cardIndex++;
+    showNextCard(); // Skip broken cards
     return;
   }
 
@@ -165,6 +173,22 @@ function showNextCard() {
 // Rest of the JavaScript remains the same
 
 function submitAnswer() {
+  if (!currentCard) {
+    alert("No active card. Returning to home screen.");
+    location.reload();
+    return;
+  }
+
+  let userAnswer = "";
+  const flashcard = document.getElementById("flashcard");
+
+  if (currentCard.type === "mcq") {
+    userAnswer = document.getElementById("answerInput")?.dataset.answer || "";
+  } else if (currentCard.type === "fill") {
+    userAnswer = document.getElementById("textAnswer")?.value.trim().toLowerCase() || "";
+  } else if (currentCard.type === "shuffled") {
+    userAnswer = document.getElementById("shuffledOutput")?.innerText.trim().toLowerCase() || "";
+  }
   let userAnswer = "";
   const flashcard = document.getElementById("flashcard");
 
