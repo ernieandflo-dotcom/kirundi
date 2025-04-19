@@ -26,21 +26,29 @@ let sessionCards = [], cardIndex = 0, currentCard;
 let score = 0, streak = 0, maxStreak = 0;
 
 function startSession() {
-  // Add this check at the start:
-  if (Object.keys(flashcards).length === 0) {
-    alert("Flashcards not loaded yet. Please wait...");
-    return;
-  }
-
-  // Rest of your existing code...
   score = 0;
   streak = 0;
   maxStreak = 0;
   
   const category = document.getElementById("categorySelect").value;
   const count = parseInt(document.getElementById("cardCountSelect").value);
-  let availableCards = flashcards[category].filter(c => !learnedCards.includes(c.id));
 
+  // 1. Flatten nested categories into a single array
+  let allCards = [];
+  if (category === 'vocabulary') {
+    // Handle vocabulary subcategories
+    for (const subcategory in flashcards.vocabulary) {
+      allCards = allCards.concat(flashcards.vocabulary[subcategory]);
+    }
+  } else {
+    // Handle non-vocabulary categories (verbs, questions)
+    allCards = flashcards[category] || [];
+  }
+
+  // 2. Filter out learned cards
+  let availableCards = allCards.filter(c => !learnedCards.includes(c.id));
+
+  // Rest of your existing code...
   availableCards.forEach(card => {
     if (!progress[card.id]) {
       progress[card.id] = { box: 5, streak: 0 };
