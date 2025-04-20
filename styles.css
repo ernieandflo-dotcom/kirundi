@@ -1,3 +1,4 @@
+
 :root {
   --primary: #4CAF50;
   --primary-dark: #388E3C;
@@ -115,6 +116,15 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+optgroup {
+  font-weight: bold;
+  font-style: normal;
+}
+optgroup option {
+  font-weight: normal;
+  padding-left: 20px;
 }
 
 #flashcard {
