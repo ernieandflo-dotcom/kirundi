@@ -1,74 +1,168 @@
 {
-    "vocabulary": {
-      "food": [
-        { "id": 1, "question": "What is 'bread' in Kirundi?", "answer": "umugati", "type": "fill" },
-        { "id": 2, "question": "Choose the correct translation for 'milk'", "answer": "amata", "type": "mcq", "options": ["amata", "umugati", "amazi"] },
-        { "id": 3, "question": "Arrange: 'eat / I / bread'", "answer": "ndarya umugati", "type": "shuffled", "parts": ["umugati", "ndarya"] },
-        { "id": 4, "question": "What is 'salt' in Kirundi?", "answer": "umunyu", "type": "fill" },
-        { "id": 5, "question": "How do you say 'banana'?", "answer": "umuneke", "type": "fill" }
-      ],
-      "places": [
-        { "id": 6, "question": "What is 'house' in Kirundi?", "answer": "inzu", "type": "fill" },
-        { "id": 7, "question": "Choose the translation for 'school'", "answer": "ishuli", "type": "mcq", "options": ["ishuli", "isoko", "ibitaro"] }
-      ],
-      "institutions": [
-        { "id": 8, "question": "What is 'hospital' in Kirundi?", "answer": "ibitaro", "type": "fill" }
-      ],
-      "people": [
-        { "id": 9, "question": "How do you say 'mother'?", "answer": "mama", "type": "fill" },
-        { "id": 10, "question": "Arrange: 'ni / Uyu / dawe'", "answer": "Uyu ni dawe", "type": "shuffled", "parts": ["ni", "Uyu", "dawe"] }
-      ],
-      "numbers": [
-        { "id": 11, "question": "What is 'one' in Kirundi?", "answer": "rimwe", "type": "fill" },
-        { "id": 12, "question": "Choose 'five'", "answer": "gatanu", "type": "mcq", "options": ["kane", "gatanu", "indwi"] }
-      ],
-      "nature": {
-        "animals": [
-          { "id": 13, "question": "What is 'cow' in Kirundi?", "answer": "inka", "type": "fill" }
-        ],
-        "plants": [
-          { "id": 14, "question": "How do you say 'tree'?", "answer": "igiti", "type": "fill" }
-        ],
-        "climate": [
-          { "id": 15, "question": "What is 'rain' in Kirundi?", "answer": "imvura", "type": "fill" }
-        ]
-      },
-      "objects": {
-        "house": [
-          { "id": 16, "question": "What is 'bed' in Kirundi?", "answer": "ububiko", "type": "fill" }
-        ],
-        "school": [
-          { "id": 17, "question": "How do you say 'book'?", "answer": "igitabo", "type": "fill" }
-        ],
-        "toys": [
-          { "id": 18, "question": "What is 'ball' in Kirundi?", "answer": "umupira", "type": "fill" }
-        ]
-      }
-    },
-    "verbs": [
-      { "id": 19, "question": "What is 'to eat' in Kirundi?", "answer": "kurya", "type": "fill" },
-      { "id": 20, "question": "Arrange: 'to / drink / water'", "answer": "kunywa amazi", "type": "shuffled", "parts": ["amazi", "kunywa"] }
+  "vocabulary": {
+    "food": [
+      { "id": 1, "question": "What is 'bread' in Kirundi?", "answer": "umugati", "type": "fill" },
+      { "id": 2, "question": "Choose the correct translation for 'milk'", "answer": "amata", "type": "mcq", "options": ["amata", "umugati", "amazi"] },
+      { "id": 3, "question": "Arrange: 'eat / I / bread'", "answer": "ndarya umugati", "type": "shuffled", "parts": ["umugati", "ndarya"] },
+      { "id": 4, "question": "What is 'salt' in Kirundi?", "answer": "umunyu", "type": "fill" },
+      { "id": 5, "question": "How do you say 'banana'?", "answer": "umuneke", "type": "fill" }
     ],
-    "questions": [
-      { "id": 21, "question": "How do you say 'How are you?'", "answer": "amakuru", "type": "fill" }
+    "places": [
+      { "id": 6, "question": "What is 'house' in Kirundi?", "answer": "inzu", "type": "fill" },
+      { "id": 7, "question": "Choose the translation for 'school'", "answer": "ishuli", "type": "mcq", "options": ["ishuli", "isoko", "ibitaro"] },
+      { "id": 30, "question": "What is 'beach' in Kirundi?", "answer": "umubambiro", "type": "fill" },
+      { "id": 31, "question": "What is 'office' in Kirundi?", "answer": "ibiro", "type": "fill" },
+      { "id": 32, "question": "What is 'restaurant' in Kirundi?", "answer": "urwarimbo", "type": "fill" },
+      { "id": 33, "question": "What is 'forest' in Kirundi?", "answer": "ishyamba", "type": "fill" },
+      { "id": 34, "question": "What is 'city' in Kirundi?", "answer": "umugi", "type": "fill" },
+      { "id": 35, "question": "What is 'country' (nation) in Kirundi?", "answer": "igihugu", "type": "fill" },
+      { "id": 36, "question": "What is 'market' in Kirundi?", "answer": "isoko", "type": "fill" },
+      { "id": 37, "question": "What is 'hospital' in Kirundi?", "answer": "ibitaro", "type": "fill" },
+      { "id": 38, "question": "What is 'church' in Kirundi?", "answer": "urubanza", "type": "fill" },
+      { "id": 39, "question": "What is 'mountain' in Kirundi?", "answer": "umusozi", "type": "fill" },
+      { "id": 40, "question": "Choose the correct translation for 'market'", "answer": "isoko", "type": "mcq", "options": ["isoko", "ibiro", "umugi"] },
+      { "id": 41, "question": "Arrange: 'going to / I am / the market'", "answer": "ndi mu isoko", "type": "shuffled", "parts": ["ndi", "mu", "isoko"] }
     ],
-    "conversations": {
-      "home": [
-        { "id": 22, "question": "How do you say 'Good morning' at home?", "answer": "Bwa mwatsi", "type": "fill" }
-      ],
-      "store": [
-        { "id": 23, "question": "What is 'How much does this cost?'", "answer": "Ni bangahe?", "type": "fill" }
-      ]
-    },
+    "institutions": [
+      { "id": 8, "question": "What is 'hospital' in Kirundi?", "answer": "ibitaro", "type": "fill" }
+    ],
+    "people": [
+      { "id": 9, "question": "How do you say 'mother'?", "answer": "mama", "type": "fill" },
+      { "id": 10, "question": "Arrange: 'ni / Uyu / dawe'", "answer": "Uyu ni dawe", "type": "shuffled", "parts": ["ni", "Uyu", "dawe"] },
+      { "id": 42, "question": "What is 'father' in Kirundi?", "answer": "data", "type": "fill" },
+      { "id": 43, "question": "What is 'mother' in Kirundi?", "answer": "mama", "type": "fill" },
+      { "id": 44, "question": "What is 'brother' in Kirundi?", "answer": "musaza", "type": "fill" },
+      { "id": 45, "question": "What is 'sister' in Kirundi?", "answer": "mukecuru", "type": "fill" },
+      { "id": 46, "question": "What is 'grandfather' in Kirundi?", "answer": "sohkuru", "type": "fill" },
+      { "id": 47, "question": "What is 'grandmother' in Kirundi?", "answer": "nyokuru", "type": "fill" },
+      { "id": 48, "question": "What is 'uncle' (father's brother) in Kirundi?", "answer": "sogokuru", "type": "fill" },
+      { "id": 49, "question": "What is 'aunt' (father's sister) in Kirundi?", "answer": "mama mukuru", "type": "fill" },
+      { "id": 50, "question": "What is 'child' in Kirundi?", "answer": "umwana", "type": "fill" },
+      { "id": 51, "question": "What is 'family' in Kirundi?", "answer": "umuryango", "type": "fill" },
+      { "id": 52, "question": "Choose the correct translation for 'sister'", "answer": "mukecuru", "type": "mcq", "options": ["mukecuru", "musaza", "umwana"] },
+      { "id": 53, "question": "Arrange: 'my / family / large / is'", "answer": "umuryango wanje munini", "type": "shuffled", "parts": ["umuryango", "wanje", "munini"] }
+    ],
     "numbers": [
-      { "id": 25, "question": "What is 'Monday' in Kirundi?", "answer": "Kuwa mbere", "type": "fill" }
+      { "id": 11, "question": "What is 'one' in Kirundi?", "answer": "rimwe", "type": "fill" },
+      { "id": 12, "question": "Choose 'five'", "answer": "gatanu", "type": "mcq", "options": ["kane", "gatanu", "indwi"] },
+      { "id": 54, "question": "What is 'two' in Kirundi?", "answer": "kabiri", "type": "fill" },
+      { "id": 55, "question": "What is 'three' in Kirundi?", "answer": "gatatu", "type": "fill" },
+      { "id": 56, "question": "What is 'four' in Kirundi?", "answer": "kane", "type": "fill" },
+      { "id": 57, "question": "What is 'six' in Kirundi?", "answer": "gatandatu", "type": "fill" },
+      { "id": 58, "question": "What is 'seven' in Kirundi?", "answer": "indwi", "type": "fill" },
+      { "id": 59, "question": "What is 'eight' in Kirundi?", "answer": "umunani", "type": "fill" },
+      { "id": 60, "question": "What is 'nine' in Kirundi?", "answer": "icenda", "type": "fill" },
+      { "id": 61, "question": "What is 'ten' in Kirundi?", "answer": "cumi", "type": "fill" },
+      { "id": 62, "question": "Choose the correct translation for 'three'", "answer": "gatatu", "type": "mcq", "options": ["gatatu", "kabiri", "indwi"] },
+      { "id": 63, "question": "Choose the correct translation for 'seven'", "answer": "indwi", "type": "mcq", "options": ["icenda", "indwi", "cumi"] }
+    ],
+    "time": [
+      { "id": 64, "question": "What is 'morning' in Kirundi?", "answer": "mu gitondo", "type": "fill" },
+      { "id": 65, "question": "What is 'afternoon' in Kirundi?", "answer": "ku musigari", "type": "fill" },
+      { "id": 66, "question": "What is 'evening' in Kirundi?", "answer": "nimugoroba", "type": "fill" },
+      { "id": 67, "question": "What is 'night' in Kirundi?", "answer": "ijoro", "type": "fill" },
+      { "id": 68, "question": "What is 'today' in Kirundi?", "answer": "uyu musi", "type": "fill" },
+      { "id": 69, "question": "What is 'tomorrow' in Kirundi?", "answer": "ejo", "type": "fill" },
+      { "id": 70, "question": "What is 'yesterday' in Kirundi?", "answer": "ejo hashize", "type": "fill" },
+      { "id": 71, "question": "What is 'day' in Kirundi?", "answer": "umusi", "type": "fill" },
+      { "id": 72, "question": "What is 'week' in Kirundi?", "answer": "icyumweru", "type": "fill" },
+      { "id": 73, "question": "What is 'month' in Kirundi?", "answer": "ukwezi", "type": "fill" },
+      { "id": 74, "question": "Arrange: 'see / you / tomorrow'", "answer": "turabonana ejo", "type": "shuffled", "parts": ["turabonana", "ejo"] },
+      { "id": 75, "question": "Arrange: 'good / morning'", "answer": "mu gitondo mwiza", "type": "shuffled", "parts": ["mwiza", "mu gitondo"] }
     ],
     "nature": {
       "animals": [
-        { "id": 26, "question": "What is 'bird' in Kirundi?", "answer": "inyoni", "type": "fill" }
+        { "id": 13, "question": "What is 'cow' in Kirundi?", "answer": "inka", "type": "fill" },
+        { "id": 76, "question": "What is 'dog' in Kirundi?", "answer": "imbwa", "type": "fill" },
+        { "id": 77, "question": "What is 'cat' in Kirundi?", "answer": "injangwe", "type": "fill" },
+        { "id": 78, "question": "What is 'bird' in Kirundi?", "answer": "inyoni", "type": "fill" },
+        { "id": 79, "question": "What is 'fish' in Kirundi?", "answer": "ifi", "type": "fill" },
+        { "id": 80, "question": "What is 'goat' in Kirundi?", "answer": "impene", "type": "fill" },
+        { "id": 81, "question": "What is 'sheep' in Kirundi?", "answer": "intama", "type": "fill" },
+        { "id": 82, "question": "What is 'chicken' in Kirundi?", "answer": "inkoko", "type": "fill" },
+        { "id": 83, "question": "What is 'rabbit' in Kirundi?", "answer": "urukwavu", "type": "fill" },
+        { "id": 84, "question": "What is 'lion' in Kirundi?", "answer": "intare", "type": "fill" },
+        { "id": 85, "question": "What is 'elephant' in Kirundi?", "answer": "inzovu", "type": "fill" },
+        { "id": 86, "question": "Choose the correct translation for 'chicken'", "answer": "inkoko", "type": "mcq", "options": ["inkoko", "intama", "imbwa"] },
+        { "id": 87, "question": "Arrange: 'black / the / cat / is'", "answer": "injangwe nirabura", "type": "shuffled", "parts": ["injangwe", "nirabura"] }
+      ],
+      "plants": [
+        { "id": 14, "question": "How do you say 'tree'?", "answer": "igiti", "type": "fill" },
+        { "id": 88, "question": "What is 'grass' in Kirundi?", "answer": "ivyatsi", "type": "fill" },
+        { "id": 89, "question": "What is 'flower' in Kirundi?", "answer": "indabyo", "type": "fill" },
+        { "id": 90, "question": "What is 'banana tree' in Kirundi?", "answer": "igitoke", "type": "fill" },
+        { "id": 91, "question": "What is 'corn' in Kirundi?", "answer": "igikoma", "type": "fill" },
+        { "id": 92, "question": "What is 'bean' in Kirundi?", "answer": "ibishyimbo", "type": "fill" },
+        { "id": 93, "question": "What is 'coffee plant' in Kirundi?", "answer": "ikawa", "type": "fill" },
+        { "id": 94, "question": "What is 'leaf' in Kirundi?", "answer": "ikibabi", "type": "fill" },
+        { "id": 95, "question": "What is 'root' in Kirundi?", "answer": "imizi", "type": "fill" },
+        { "id": 96, "question": "What is 'fruit' in Kirundi?", "answer": "ivyamwa", "type": "fill" },
+        { "id": 97, "question": "What is 'vegetable' in Kirundi?", "answer": "imboga", "type": "fill" }
+      ],
+      "climate": [
+        { "id": 15, "question": "What is 'rain' in Kirundi?", "answer": "imvura", "type": "fill" }
       ]
     },
-    "fun": [
-      { "id": 24, "question": "What is 'laughter' in Kirundi?", "answer": "guseka", "type": "fill" }
+    "objects": {
+      "house": [
+        { "id": 16, "question": "What is 'bed' in Kirundi?", "answer": "ububiko", "type": "fill" }
+      ],
+      "school": [
+        { "id": 17, "question": "How do you say 'book'?", "answer": "igitabo", "type": "fill" }
+      ],
+      "toys": [
+        { "id": 18, "question": "What is 'ball' in Kirundi?", "answer": "umupira", "type": "fill" }
+      ]
+    }
+  },
+  "verbs": [
+    { "id": 19, "question": "What is 'to eat' in Kirundi?", "answer": "kurya", "type": "fill" },
+    { "id": 20, "question": "Arrange: 'to / drink / water'", "answer": "kunywa amazi", "type": "shuffled", "parts": ["amazi", "kunywa"] }
+  ],
+  "questions": [
+    { "id": 21, "question": "How do you say 'How are you?'", "answer": "amakuru", "type": "fill" }
+  ],
+  "conversations": {
+    "home": [
+      { "id": 22, "question": "How do you say 'Good morning' at home?", "answer": "Bwa mwatsi", "type": "fill" }
+    ],
+    "store": [
+      { "id": 23, "question": "What is 'How much does this cost?'", "answer": "Ni bangahe?", "type": "fill" }
+    ],
+    "general": [
+      { "id": 98, "question": "Choose the correct response to 'Amakuru?' (How are you?)", "answer": "Ni meza", "type": "mcq", "options": ["Ni meza", "Urakoze", "Murabeho"] },
+      { "id": 99, "question": "What does 'Urakoze' mean?", "answer": "Thank you", "type": "mcq", "options": ["Thank you", "Good morning", "Goodbye"] },
+      { "id": 100, "question": "Choose the correct way to ask someone's name", "answer": "Witwa nde?", "type": "mcq", "options": ["Witwa nde?", "Uri hehe?", "Urakoze?"] },
+      { "id": 101, "question": "What is the response to 'Murakoze'?", "answer": "Ntakibazo", "type": "mcq", "options": ["Ntakibazo", "Urakoze", "Amakuru"] },
+      { "id": 102, "question": "Choose the correct translation for 'Where are you going?'", "answer": "Uragenda hehe?", "type": "mcq", "options": ["Uragenda hehe?", "Uri hehe?", "Urafise imyaka ingahe?"] },
+      { "id": 103, "question": "What does 'Ndabizi' mean?", "answer": "I know", "type": "mcq", "options": ["I know", "I don't know", "Maybe"] },
+      { "id": 104, "question": "Choose the correct way to say 'See you tomorrow'", "answer": "Turabonana ejo", "type": "mcq", "options": ["Turabonana ejo", "Murakoze", "Bwa mwatsi"] },
+      { "id": 105, "question": "What is the meaning of 'Simbizi'?", "answer": "I don't know", "type": "mcq", "options": ["I don't know", "I understand", "Thank you"] },
+      { "id": 106, "question": "Choose the correct response to 'Urafise imyaka ingahe?' (How old are you?)", "answer": "Mfise imyaka X", "type": "mcq", "options": ["Mfise imyaka X", "Ndi mu gihugu", "Ndabizi"] },
+      { "id": 107, "question": "What does 'Ndagushaka' mean?", "answer": "I love you", "type": "mcq", "options": ["I love you", "I need you", "I see you"] },
+      { "id": 108, "question": "Arrange: 'name / your / what / is'", "answer": "Witwa nde", "type": "shuffled", "parts": ["Witwa", "nde"] },
+      { "id": 109, "question": "Arrange: 'from / where / you / are'", "answer": "Ukomoka hehe", "type": "shuffled", "parts": ["Ukomoka", "hehe"] },
+      { "id": 110, "question": "Arrange: 'going / where / you / are'", "answer": "Uragenda hehe", "type": "shuffled", "parts": ["Uragenda", "hehe"] },
+      { "id": 111, "question": "Arrange: 'do / you / Kirundi / speak'", "answer": "Uravuga icirundi", "type": "shuffled", "parts": ["Uravuga", "icirundi"] },
+      { "id": 112, "question": "Arrange: 'help / me / please / help'", "answer": "Nyamuneka unfashe", "type": "shuffled", "parts": ["Nyamuneka", "unfashe"] },
+      { "id": 113, "question": "Arrange: 'time / what / is / it'", "answer": "Ni gihe ki", "type": "shuffled", "parts": ["Ni", "gihe", "ki"] },
+      { "id": 114, "question": "Arrange: 'here / live / I'", "answer": "Ndi hano", "type": "shuffled", "parts": ["Ndi", "hano"] },
+      { "id": 115, "question": "Arrange: 'you / understand / I'", "answer": "Ndakumva", "type": "shuffled", "parts": ["Ndakumva"] },
+      { "id": 116, "question": "Arrange: 'again / please / speak'", "answer": "Nyamuneka uvuge nanone", "type": "shuffled", "parts": ["Nyamuneka", "uvuge", "nanone"] },
+      { "id": 117, "question": "Arrange: 'happy / am / I'", "answer": "Ndanezerewe", "type": "shuffled", "parts": ["Ndanezerewe"] }
     ]
-  }
+  },
+  "fun": [
+    { "id": 24, "question": "What is 'laughter' in Kirundi?", "answer": "guseka", "type": "fill" },
+    { "id": 118, "question": "What do Burundians say instead of 'Bless you' when someone sneezes?", "answer": "Urakire", "type": "mcq", "options": ["Urakire", "Uramubaza", "Urabona"] },
+    { "id": 119, "question": "How do you say 'That's crazy!' in Kirundi?", "answer": "Birahagije!", "type": "fill" },
+    { "id": 120, "question": "Arrange this funny market phrase: 'cheap / it's / very / no / mother!'", "answer": "Oya mama nihebuje!", "type": "shuffled", "parts": ["Oya", "mama", "nihebuje"] },
+    { "id": 121, "question": "What's the Kirundi term for 'food coma' after eating ugali?", "answer": "kugira igifu", "type": "fill" },
+    { "id": 122, "question": "Choose the correct translation for this funny insult: 'You goat!'", "answer": "Wewe mpene!", "type": "mcq", "options": ["Wewe mpene!", "Wewe intama!", "Wewe nka!"] },
+    { "id": 123, "question": "What do kids shout when playing hide-and-seek in Burundi?", "answer": "Ndasanzwe!", "type": "fill" },
+    { "id": 124, "question": "Arrange this funny response to gossip: 'ears / my / burning / are'", "answer": "Amatwi yanje arakaye", "type": "shuffled", "parts": ["Amatwi", "yanje", "arakaye"] },
+    { "id": 125, "question": "What's the Kirundi equivalent of 'LOL' when texting?", "answer": "Ndasinziriye!", "type": "fill" },
+    { "id": 126, "question": "Choose the fun way to say 'Let's bounce!' (leave a place)", "answer": "Reka tujye!", "type": "mcq", "options": ["Reka tujye!", "Turabeho!", "Nimugende!"] },
+    { "id": 127, "question": "What's the funny Kirundi phrase meaning 'You're pulling my leg?'", "answer": "Uranshukisha!", "type": "fill" }
+  ]
+}
