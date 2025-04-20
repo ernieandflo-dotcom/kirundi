@@ -10,44 +10,84 @@ async function loadFlashcards() {
     const response = await fetch('flashcards.json');
     if (!response.ok) throw new Error("Failed to load flashcards");
     flashcards = await response.json();
-    console.log("Flashcards loaded successfully!");
+    console.log("Flashcards loaded successfully:", Object.keys(flashcards).length + " categories loaded");
+    
+    // Initialize progress for all cards
+    initializeProgressForAllCards();
   } catch (error) {
     console.error("Error loading flashcards:", error);
+    // Fallback to a minimal set of flashcards
     flashcards = {
-      vocabulary: [
-        { id: 1, question: "What is 'bread' in Kirundi?", answer: "umugati", type: "fill" }
-      ]
+      vocabulary: {
+        food: [
+          { id: 1, question: "What is 'bread' in Kirundi?", answer: "umugati", type: "fill" }
+        ]
+      }
     };
+    initializeProgressForAllCards();
   }
 }
 
-function flattenCards(category) {
-  if (!category) return [];
+function initializeProgressForAllCards() {
+  console.log("Initializing progress for all cards...");
+  let cardsInitialized = 0;
   
-  // Handle nested categories (e.g., "nature.animals")
-  const parts = category.split('.');
-  let current = flashcards;
-  
-  for (const part of parts) {
-    if (!current[part]) return [];
-    current = current[part];
-  }
-  
-  // If we've reached an array, return it
-  if (Array.isArray(current)) return current;
-  
-  // If it's an object but not an array, collect all its array values
-  if (typeof current === 'object') {
-    let cards = [];
-    for (const key in current) {
-      if (Array.isArray(current[key])) {
-        cards = cards.concat(current[key]);
+  for (const category in flashcards) {
+    const cards = flattenCards(category);
+    cards.forEach(card => {
+      if (card.id && !progress[card.id]) {
+        progress[card.id] = { box: 5, streak: 0 };
+        cardsInitialized++;
       }
-    }
-    return cards;
+    });
   }
   
-  return [];
+  console.log(`Progress initialized for ${cardsInitialized} cards`);
+  saveProgress();
+}
+
+function flattenCards(category) {
+  if (!category || !flashcards) {
+    console.warn("No category or flashcards data available");
+    return [];
+  }
+  
+  try {
+    // Handle nested categories (e.g., "nature.animals")
+    const parts = category.split('.');
+    let current = flashcards;
+    
+    for (const part of parts) {
+      if (!current[part]) {
+        console.warn(`Category part '${part}' not found`);
+        return [];
+      }
+      current = current[part];
+    }
+    
+    // If we've reached an array, return it
+    if (Array.isArray(current)) {
+      console.log(`Found ${current.length} cards in category ${category}`);
+      return current;
+    }
+    
+    // If it's an object but not an array, collect all its array values
+    if (typeof current === 'object') {
+      let cards = [];
+      for (const key in current) {
+        if (Array.isArray(current[key])) {
+          cards = cards.concat(current[key]);
+        }
+      }
+      console.log(`Found ${cards.length} cards in nested category ${category}`);
+      return cards;
+    }
+    
+    return [];
+  } catch (error) {
+    console.error("Error flattening cards for category", category, error);
+    return [];
+  }
 }
 
 function shuffleArray(array) {
@@ -59,7 +99,15 @@ function shuffleArray(array) {
   return newArray;
 }
 
-function startSession() {
+async function startSession() {
+  console.log("Starting session...");
+  
+  // Ensure flashcards are loaded
+  if (Object.keys(flashcards).length === 0) {
+    console.log("Flashcards not loaded yet, loading now...");
+    await loadFlashcards();
+  }
+
   score = 0;
   streak = 0;
   maxStreak = 0;
@@ -68,14 +116,25 @@ function startSession() {
   const count = parseInt(document.getElementById("cardCountSelect").value);
 
   let allCards = flattenCards(category);
+  
+  console.log(`Category: ${category}, found ${allCards.length} cards total`);
+  
   let availableCards = allCards.filter(c => c && c.id && !learnedCards.includes(c.id));
+
+  console.log(`After filtering learned cards: ${availableCards.length} available`);
 
   if (availableCards.length === 0) {
     alert("No cards available in this category or all cards have been learned!");
+    console.warn("No available cards - possible reasons:", {
+      allCardsCount: allCards.length,
+      learnedCardsCount: learnedCards.length,
+      category: category,
+      progress: progress
+    });
     return;
   }
 
-  // Initialize progress for new cards
+  // Initialize progress for any new cards
   availableCards.forEach(card => {
     if (!progress[card.id]) {
       progress[card.id] = { box: 5, streak: 0 };
@@ -94,8 +153,10 @@ function startSession() {
 
   sessionCards = availableCards.slice(0, Math.min(count, availableCards.length));
   
-  console.log(`Starting session with ${sessionCards.length} cards from ${category}`);
-  console.log("Session cards:", sessionCards);
+  console.log(`Starting session with ${sessionCards.length} cards`, {
+    sessionCards: sessionCards,
+    progress: progress
+  });
 
   document.getElementById("setup").classList.add("hidden");
   document.getElementById("flashcardSection").classList.remove("hidden");
@@ -106,6 +167,7 @@ function startSession() {
   showNextCard();
 }
 
+// [Rest of your existing functions remain exactly the same...]
 function showNextCard() {
   // Skip invalid cards
   while (cardIndex < sessionCards.length) {
@@ -443,7 +505,19 @@ function saveProgress() {
   localStorage.setItem("learnedCards", JSON.stringify(learnedCards));
 }
 
-// Initialize the app
+// Initialize the app with improved loading
 document.addEventListener('DOMContentLoaded', async function() {
-  await loadFlashcards();
+  console.log("DOM loaded, initializing app...");
+  
+  // Update the start button to be async
+  document.querySelector('button[onclick="startSession()"]').onclick = async function() {
+    await startSession();
+  };
+  
+  // Load flashcards but don't block UI
+  loadFlashcards().then(() => {
+    console.log("App initialization complete");
+  }).catch(error => {
+    console.error("Initialization error:", error);
+  });
 });
