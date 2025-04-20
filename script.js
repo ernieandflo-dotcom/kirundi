@@ -32,8 +32,11 @@ function initializeProgressForAllCards() {
   console.log("Initializing progress for all cards...");
   let cardsInitialized = 0;
   
+  // Process all top-level categories
   for (const category in flashcards) {
-    const cards = flattenCards(category);
+    // Get all cards from this category (including nested subcategories)
+    const cards = getAllCardsFromCategory(category);
+    
     cards.forEach(card => {
       if (card.id && !progress[card.id]) {
         progress[card.id] = { box: 5, streak: 0 };
@@ -46,48 +49,48 @@ function initializeProgressForAllCards() {
   saveProgress();
 }
 
+function getAllCardsFromCategory(category) {
+  if (!category || !flashcards) return [];
+  
+  const categoryObj = getNestedCategory(category);
+  if (!categoryObj) return [];
+  
+  // If it's an array, return it directly
+  if (Array.isArray(categoryObj)) return categoryObj;
+  
+  // If it's an object, collect all arrays from its properties
+  let cards = [];
+  for (const key in categoryObj) {
+    if (Array.isArray(categoryObj[key])) {
+      cards = cards.concat(categoryObj[key]);
+    } else if (typeof categoryObj[key] === 'object') {
+      // Recursively get cards from nested objects
+      cards = cards.concat(getAllCardsFromCategory(`${category}.${key}`));
+    }
+  }
+  return cards;
+}
+
+function getNestedCategory(categoryPath) {
+  if (!categoryPath) return null;
+  
+  const parts = categoryPath.split('.');
+  let current = flashcards;
+  
+  for (const part of parts) {
+    if (!current[part]) return null;
+    current = current[part];
+  }
+  
+  return current;
+}
+
 function flattenCards(category) {
   if (!category || !flashcards) {
     console.warn("No category or flashcards data available");
     return [];
   }
-  
-  try {
-    // Handle nested categories (e.g., "nature.animals")
-    const parts = category.split('.');
-    let current = flashcards;
-    
-    for (const part of parts) {
-      if (!current[part]) {
-        console.warn(`Category part '${part}' not found`);
-        return [];
-      }
-      current = current[part];
-    }
-    
-    // If we've reached an array, return it
-    if (Array.isArray(current)) {
-      console.log(`Found ${current.length} cards in category ${category}`);
-      return current;
-    }
-    
-    // If it's an object but not an array, collect all its array values
-    if (typeof current === 'object') {
-      let cards = [];
-      for (const key in current) {
-        if (Array.isArray(current[key])) {
-          cards = cards.concat(current[key]);
-        }
-      }
-      console.log(`Found ${cards.length} cards in nested category ${category}`);
-      return cards;
-    }
-    
-    return [];
-  } catch (error) {
-    console.error("Error flattening cards for category", category, error);
-    return [];
-  }
+  return getAllCardsFromCategory(category);
 }
 
 function shuffleArray(array) {
