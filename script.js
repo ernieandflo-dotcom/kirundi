@@ -11,12 +11,9 @@ async function loadFlashcards() {
     if (!response.ok) throw new Error("Failed to load flashcards");
     flashcards = await response.json();
     console.log("Flashcards loaded successfully:", Object.keys(flashcards).length + " categories loaded");
-    
-    // Initialize progress for all cards
     initializeProgressForAllCards();
   } catch (error) {
     console.error("Error loading flashcards:", error);
-    // Fallback to a minimal set of flashcards
     flashcards = {
       vocabulary: {
         food: [
@@ -32,65 +29,77 @@ function initializeProgressForAllCards() {
   console.log("Initializing progress for all cards...");
   let cardsInitialized = 0;
   
-  // Process all top-level categories
-  for (const category in flashcards) {
-    // Get all cards from this category (including nested subcategories)
-    const cards = getAllCardsFromCategory(category);
-    
-    cards.forEach(card => {
-      if (card.id && !progress[card.id]) {
-        progress[card.id] = { box: 5, streak: 0 };
-        cardsInitialized++;
+  // Process all categories recursively
+  function processCategory(categoryObj, path = '') {
+    if (Array.isArray(categoryObj)) {
+      categoryObj.forEach(card => {
+        if (card.id && !progress[card.id]) {
+          progress[card.id] = { box: 5, streak: 0 };
+          cardsInitialized++;
+        }
+      });
+    } else if (typeof categoryObj === 'object') {
+      for (const key in categoryObj) {
+        processCategory(categoryObj[key], path ? `${path}.${key}` : key);
       }
-    });
+    }
   }
   
+  processCategory(flashcards);
   console.log(`Progress initialized for ${cardsInitialized} cards`);
   saveProgress();
 }
 
-function getAllCardsFromCategory(category) {
-  if (!category || !flashcards) return [];
-  
-  const categoryObj = getNestedCategory(category);
-  if (!categoryObj) return [];
-  
-  // If it's an array, return it directly
-  if (Array.isArray(categoryObj)) return categoryObj;
-  
-  // If it's an object, collect all arrays from its properties
-  let cards = [];
-  for (const key in categoryObj) {
-    if (Array.isArray(categoryObj[key])) {
-      cards = cards.concat(categoryObj[key]);
-    } else if (typeof categoryObj[key] === 'object') {
-      // Recursively get cards from nested objects
-      cards = cards.concat(getAllCardsFromCategory(`${category}.${key}`));
-    }
-  }
-  return cards;
-}
-
 function getNestedCategory(categoryPath) {
-  if (!categoryPath) return null;
+  if (!categoryPath || !flashcards) {
+    console.warn("Invalid category path or flashcards not loaded");
+    return null;
+  }
   
+  // Handle top-level categories
+  if (flashcards[categoryPath]) {
+    return flashcards[categoryPath];
+  }
+  
+  // Handle nested categories
   const parts = categoryPath.split('.');
   let current = flashcards;
   
   for (const part of parts) {
-    if (!current[part]) return null;
+    if (!current[part]) {
+      console.warn(`Category '${part}' not found in path '${categoryPath}'`);
+      return null;
+    }
     current = current[part];
   }
   
   return current;
 }
 
-function flattenCards(category) {
-  if (!category || !flashcards) {
-    console.warn("No category or flashcards data available");
+function flattenCards(categoryPath) {
+  if (!categoryPath || !flashcards) {
+    console.warn("No category path or flashcards data available");
     return [];
   }
-  return getAllCardsFromCategory(category);
+  
+  const categoryObj = getNestedCategory(categoryPath);
+  if (!categoryObj) return [];
+  
+  if (Array.isArray(categoryObj)) {
+    return categoryObj;
+  }
+  
+  // For objects, recursively collect all arrays
+  let cards = [];
+  for (const key in categoryObj) {
+    if (Array.isArray(categoryObj[key])) {
+      cards = cards.concat(categoryObj[key]);
+    } else if (typeof categoryObj[key] === 'object') {
+      cards = cards.concat(flattenCards(`${categoryPath}.${key}`));
+    }
+  }
+  
+  return cards;
 }
 
 function shuffleArray(array) {
@@ -105,7 +114,6 @@ function shuffleArray(array) {
 async function startSession() {
   console.log("Starting session...");
   
-  // Ensure flashcards are loaded
   if (Object.keys(flashcards).length === 0) {
     console.log("Flashcards not loaded yet, loading now...");
     await loadFlashcards();
@@ -115,15 +123,15 @@ async function startSession() {
   streak = 0;
   maxStreak = 0;
   
-  const category = document.getElementById("categorySelect").value;
+  const categorySelect = document.getElementById("categorySelect");
+  const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+  const fullCategoryPath = selectedOption.getAttribute('data-fullpath') || categorySelect.value;
   const count = parseInt(document.getElementById("cardCountSelect").value);
 
-  let allCards = flattenCards(category);
-  
-  console.log(`Category: ${category}, found ${allCards.length} cards total`);
+  let allCards = flattenCards(fullCategoryPath);
+  console.log(`Category: ${fullCategoryPath}, found ${allCards.length} cards total`);
   
   let availableCards = allCards.filter(c => c && c.id && !learnedCards.includes(c.id));
-
   console.log(`After filtering learned cards: ${availableCards.length} available`);
 
   if (availableCards.length === 0) {
@@ -131,7 +139,7 @@ async function startSession() {
     console.warn("No available cards - possible reasons:", {
       allCardsCount: allCards.length,
       learnedCardsCount: learnedCards.length,
-      category: category,
+      category: fullCategoryPath,
       progress: progress
     });
     return;
@@ -144,22 +152,12 @@ async function startSession() {
     }
   });
 
-  // Shuffle first to ensure randomness
+  // Shuffle and sort by box number
   availableCards = shuffleArray(availableCards);
-  
-  // Then sort by box number (higher boxes first)
-  availableCards.sort((a, b) => {
-    const boxA = progress[a.id]?.box || 5;
-    const boxB = progress[b.id]?.box || 5;
-    return boxB - boxA;
-  });
+  availableCards.sort((a, b) => (progress[b.id]?.box || 5) - (progress[a.id]?.box || 5));
 
   sessionCards = availableCards.slice(0, Math.min(count, availableCards.length));
-  
-  console.log(`Starting session with ${sessionCards.length} cards`, {
-    sessionCards: sessionCards,
-    progress: progress
-  });
+  console.log(`Starting session with ${sessionCards.length} cards`);
 
   document.getElementById("setup").classList.add("hidden");
   document.getElementById("flashcardSection").classList.remove("hidden");
@@ -508,7 +506,7 @@ function saveProgress() {
   localStorage.setItem("learnedCards", JSON.stringify(learnedCards));
 }
 
-// Initialize the app with improved loading
+// Initialize the app
 document.addEventListener('DOMContentLoaded', async function() {
   console.log("DOM loaded, initializing app...");
   
