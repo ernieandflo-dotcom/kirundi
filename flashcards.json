@@ -16,7 +16,7 @@
       ],
       "people": [
         { "id": 9, "question": "How do you say 'mother'?", "answer": "mama", "type": "fill" },
-        { "id": 10, "question": "Arrange: 'my / is / this / father'", "answer": "this is my father", "type": "shuffled", "parts": ["father", "my", "this", "is"] }
+        { "id": 10, "question": "Arrange: 'ni / Uyu / dawe'", "answer": "Uyu ni dawe", "type": "shuffled", "parts": ["ni", "Uyu", "dawe"] }
       ],
       "numbers": [
         { "id": 11, "question": "What is 'one' in Kirundi?", "answer": "rimwe", "type": "fill" },
