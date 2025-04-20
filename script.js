@@ -22,39 +22,32 @@ async function loadFlashcards() {
 }
 
 function flattenCards(category) {
-  if (!flashcards[category]) return [];
+  if (!category) return [];
   
-  // Handle vocabulary's nested structure
-  if (category === 'vocabulary') {
+  // Handle nested categories (e.g., "nature.animals")
+  const parts = category.split('.');
+  let current = flashcards;
+  
+  for (const part of parts) {
+    if (!current[part]) return [];
+    current = current[part];
+  }
+  
+  // If we've reached an array, return it
+  if (Array.isArray(current)) return current;
+  
+  // If it's an object but not an array, collect all its array values
+  if (typeof current === 'object') {
     let cards = [];
-    for (const subcategory in flashcards.vocabulary) {
-      if (Array.isArray(flashcards.vocabulary[subcategory])) {
-        cards = cards.concat(flashcards.vocabulary[subcategory]);
-      } else if (typeof flashcards.vocabulary[subcategory] === 'object') {
-        // Handle nested subcategories (like nature.animals)
-        for (const subsub in flashcards.vocabulary[subcategory]) {
-          if (Array.isArray(flashcards.vocabulary[subcategory][subsub])) {
-            cards = cards.concat(flashcards.vocabulary[subcategory][subsub]);
-          }
-        }
+    for (const key in current) {
+      if (Array.isArray(current[key])) {
+        cards = cards.concat(current[key]);
       }
     }
     return cards;
   }
   
-  // Handle other categories that might have nested structure
-  if (typeof flashcards[category] === 'object' && !Array.isArray(flashcards[category])) {
-    let cards = [];
-    for (const subcategory in flashcards[category]) {
-      if (Array.isArray(flashcards[category][subcategory])) {
-        cards = cards.concat(flashcards[category][subcategory]);
-      }
-    }
-    return cards;
-  }
-  
-  // Handle simple array categories
-  return Array.isArray(flashcards[category]) ? flashcards[category] : [];
+  return [];
 }
 
 function shuffleArray(array) {
@@ -290,7 +283,9 @@ function showFeedback(isCorrect, correctAnswer) {
 }
 
 function continueSession() {
+  // Remove any feedback or mastery messages
   document.querySelector(".feedback")?.remove();
+  document.querySelector(".mastery-message")?.remove();
   document.getElementById("submit").disabled = false;
   
   const cardProgress = progress[currentCard?.id];
@@ -315,10 +310,18 @@ function showMasteryMessage() {
   mastery.innerHTML = `
     <h3>🎉 Card Mastered! 🎉</h3>
     <p>You've correctly answered this card 5 times in Box 1!</p>
-    <button onclick="cardIndex++; continueSession();">Continue</button>
+    <button onclick="closeMasteryMessage()">Continue</button>
   `;
   
   document.getElementById("flashcardSection").appendChild(mastery);
+}
+
+function closeMasteryMessage() {
+  document.querySelector(".mastery-message")?.remove();
+  cardIndex++;
+  saveProgress();
+  updateProgressDisplay();
+  showNextCard();
 }
 
 function updateProgressDisplay() {
