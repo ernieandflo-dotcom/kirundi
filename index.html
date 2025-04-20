@@ -13,23 +13,23 @@
       <label for="categorySelect">Choose a category:</label>
       <select id="categorySelect">
         <optgroup label="Vocabulary">
-          <option value="food">Food</option>
-          <option value="places">Places</option>
-          <option value="people">People</option>
-          <option value="numbers">Numbers</option>
-          <option value="time">Time</option>
-          <option value="nature.animals">Animals</option>
-          <option value="nature.plants">Plants</option>
-          <option value="nature.climate">Climate</option>
-          <option value="objects.house">House Objects</option>
-          <option value="objects.school">School Objects</option>
-          <option value="objects.toys">Toys</option>
+          <option value="food" data-fullpath="vocabulary.food">Food</option>
+          <option value="places" data-fullpath="vocabulary.places">Places</option>
+          <option value="people" data-fullpath="vocabulary.people">People</option>
+          <option value="numbers" data-fullpath="vocabulary.numbers">Numbers</option>
+          <option value="time" data-fullpath="vocabulary.time">Time</option>
+          <option value="animals" data-fullpath="vocabulary.nature.animals">Animals</option>
+          <option value="plants" data-fullpath="vocabulary.nature.plants">Plants</option>
+          <option value="climate" data-fullpath="vocabulary.nature.climate">Climate</option>
+          <option value="house" data-fullpath="vocabulary.objects.house">House Objects</option>
+          <option value="school" data-fullpath="vocabulary.objects.school">School Objects</option>
+          <option value="toys" data-fullpath="vocabulary.objects.toys">Toys</option>
         </optgroup>
         <option value="verbs">Verbs</option>
         <option value="questions">Useful Questions</option>
-        <option value="conversations.home">Home Conversations</option>
-        <option value="conversations.store">Store Conversations</option>
-        <option value="conversations.general">General Conversations</option>
+        <option value="home" data-fullpath="conversations.home">Home Conversations</option>
+        <option value="store" data-fullpath="conversations.store">Store Conversations</option>
+        <option value="general" data-fullpath="conversations.general">General Conversations</option>
         <option value="fun">Fun & Funny</option>
       </select>
 
@@ -55,7 +55,6 @@
       <div id="flashcard"></div>
       <div id="inputSection"></div>
       <button id="submit" onclick="submitAnswer()">Submit</button>
-      <!-- Centered Home Button -->
       <div class="home-button-container">
         <button onclick="location.reload()" class="home-button">🏠 Home</button>
       </div>
