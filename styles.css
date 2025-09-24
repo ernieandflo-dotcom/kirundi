@@ -68,6 +68,10 @@ h1 {
   display: none;
 }
 
+logo {
+  width: auto;
+}
+
 /* Rest of your existing CSS remains exactly the same */
 h3 {
   text-align: center;
