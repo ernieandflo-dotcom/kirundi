@@ -1,74 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akirundi Learning App</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ikirundi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>📚 Akirundi Flashcards</h1>
-    <div><img src="logoNdaAPP_wide-medium.png" class="container"></div>
-    <div id="setup">
-      <label for="categorySelect">Choose a category:</label>
-      <select id="categorySelect">
-        <optgroup label="Vocabulary">
-          <option value="food" data-fullpath="vocabulary.food">Food</option>
-          <option value="places" data-fullpath="vocabulary.places">Places</option>
-          <option value="people" data-fullpath="vocabulary.people">People</option>
-          <option value="numbers" data-fullpath="vocabulary.numbers">Numbers</option>
-          <option value="time" data-fullpath="vocabulary.time">Time</option>
-          <option value="animals" data-fullpath="vocabulary.nature.animals">Animals</option>
-          <option value="plants" data-fullpath="vocabulary.nature.plants">Plants</option>
-          <option value="climate" data-fullpath="vocabulary.nature.climate">Climate</option>
-          <option value="house" data-fullpath="vocabulary.objects.house">House Objects</option>
-          <option value="school" data-fullpath="vocabulary.objects.school">School Objects</option>
-          <option value="toys" data-fullpath="vocabulary.objects.toys">Toys</option>
-        </optgroup>
-        <option value="verbs">Verbs</option>
-        <option value="questions">Useful Questions</option>
-        <option value="home" data-fullpath="conversations.home">Home Conversations</option>
-        <option value="store" data-fullpath="conversations.store">Store Conversations</option>
-        <option value="general" data-fullpath="conversations.general">General Conversations</option>
-        <option value="fun">Fun & Funny</option>
-      </select>
 
-      <label for="cardCountSelect">Number of cards:</label>
-      <select id="cardCountSelect">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="50">50</option>
-      </select>
+<!-- ═══════════════════════════════════════
+     HAMBURGER MENU OVERLAY
+════════════════════════════════════════ -->
+<div id="menu-overlay" class="menu-overlay" onclick="closeMenu()"></div>
 
-      <button onclick="startSession()">Start Learning</button>
-      <button onclick="showLearned()">Manage Learned Cards</button>
-    </div>
+<nav id="side-menu" class="side-menu">
+  <div class="side-menu-header">
+    <span class="side-menu-title">Ikirundi</span>
+    <button class="menu-close-btn" onclick="closeMenu()">✕</button>
+  </div>
 
-    <div id="flashcardSection" class="hidden">
-      <div class="progress-container">
-        <div class="progress-bar"></div>
-      </div>
-      <div class="score-display">Score: 0 | Streak: 0 (Max: 0)</div>
-      <div class="box-indicator"></div>
-      
-      <div id="flashcard"></div>
-      <div id="inputSection"></div>
-      <button id="submit" onclick="submitAnswer()">Submit</button>
-      <div class="home-button-container">
-        <button onclick="location.reload()" class="home-button">🏠 Home</button>
-      </div>
-    </div>
+  <div class="side-menu-section-label" data-i18n="menu_study">Study</div>
+  <button class="menu-item" onclick="closeMenu(); showScreen('home')">
+    <span class="menu-item-icon">🏠</span>
+    <span data-i18n="menu_home">Home</span>
+  </button>
+  <button class="menu-item" onclick="closeMenu(); showScreen('learned-screen')">
+    <span class="menu-item-icon">🎓</span>
+    <span data-i18n="menu_learned">Learned Cards</span>
+  </button>
 
-    <div id="learnedSection" class="hidden">
-      <h3>🎓 Learned Cards</h3>
-      <div id="learnedCardsList"></div>
-      <button onclick="reintroduceSelected()">Reintroduce Selected</button>
-      <button onclick="reintroduceAll()">Reintroduce All</button>
-      <button onclick="location.reload()">Back to Main</button>
+  <div class="side-menu-divider"></div>
+
+  <div class="side-menu-section-label" data-i18n="menu_resources">Resources</div>
+  <button class="menu-item" onclick="closeMenu(); showScreen('notes-screen')">
+    <span class="menu-item-icon">📒</span>
+    <span data-i18n="menu_notes">Course Notes</span>
+  </button>
+  <button class="menu-item" onclick="closeMenu(); showScreen('blog-screen')">
+    <span class="menu-item-icon">✍️</span>
+    <span data-i18n="menu_blog">Blog</span>
+  </button>
+
+  <div class="side-menu-divider"></div>
+
+  <div class="side-menu-section-label" data-i18n="menu_settings">Settings</div>
+  <div class="menu-lang-toggle">
+    <span class="menu-item-icon">🌐</span>
+    <span data-i18n="menu_language">Base language</span>
+    <div class="lang-pills">
+      <button class="lang-pill selected" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-pill" data-lang="fr" onclick="setLang('fr')">FR</button>
     </div>
   </div>
-  <script src="script.js"></script>
+</nav>
+
+
+<!-- ═══════════════════════════════════════
+     HOME
+════════════════════════════════════════ -->
+<div id="home" class="screen active">
+
+  <header class="top-bar">
+    <button class="hamburger-btn" onclick="openMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="top-bar-title">Ikirundi</span>
+    <div class="top-bar-spacer"></div>
+  </header>
+
+  <div class="home-body">
+    <div class="logo-area">
+      <span class="logo-flag">🇧🇮</span>
+      <h1>Iki<span>rundi</span></h1>
+      <p data-i18n="tagline">Master the language of Burundi — one card at a time</p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-pill">
+        <span class="dot dot-orange"></span>
+        <span data-i18n="stat_score">Score:</span> <strong id="home-score">0</strong>
+      </div>
+      <div class="stat-pill">
+        <span class="dot dot-green"></span>
+        🔥 <span data-i18n="stat_streak">Best streak:</span> <strong id="home-streak">0</strong>
+      </div>
+      <div class="stat-pill">
+        ✅ <span data-i18n="stat_learned">Learned:</span> <strong id="home-learned">0</strong>
+      </div>
+    </div>
+
+    <div class="section-label" data-i18n="label_category">Choose a category</div>
+    <div class="category-grid" id="category-grid"></div>
+
+    <div class="count-row">
+      <div class="section-label" data-i18n="label_cards">Number of cards</div>
+      <div class="count-options">
+        <button class="count-opt"          data-n="5">5</button>
+        <button class="count-opt selected" data-n="10">10</button>
+        <button class="count-opt"          data-n="20">20</button>
+        <button class="count-opt"          data-n="30">30</button>
+        <button class="count-opt"          data-n="50">50</button>
+      </div>
+    </div>
+
+    <button class="start-btn" id="start-btn" disabled data-i18n="btn_select">
+      Select a category to start →
+    </button>
+  </div>
+
+</div><!-- /#home -->
+
+
+<!-- ═══════════════════════════════════════
+     STUDY
+════════════════════════════════════════ -->
+<div id="study" class="screen">
+
+  <div class="study-header">
+    <button class="back-btn" id="back-to-home">←</button>
+    <div class="study-meta">
+      <div class="cat-title"    id="study-cat-title">—</div>
+      <div class="card-counter" id="card-counter">Card 1 of 10</div>
+    </div>
+    <div class="score-display">
+      <div class="score-num"  id="live-score">0</div>
+      <div class="streak-num" id="live-streak">🔥0</div>
+    </div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+
+  <div class="card-area">
+    <div class="flashcard-wrapper">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="card-face card-front" id="card-front-face">
+          <div class="card-loading">
+            <div class="spinner"></div>
+          </div>
+        </div>
+        <div class="card-face card-back" id="card-back-face">
+          <span class="card-tag">Ikirundi</span>
+          <div class="card-word">—</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint" id="flip-hint" data-i18n="flip_hint">👆 Tap the card to reveal the Kirundi word</p>
+
+    <div class="action-row hidden" id="action-row">
+      <button class="action-btn btn-wrong"   onclick="answerCard(false)" data-i18n="btn_wrong">✗ Still learning</button>
+      <button class="action-btn btn-correct" onclick="answerCard(true)"  data-i18n="btn_correct">✓ Got it!</button>
+      <button class="action-btn btn-learned" onclick="markLearned()" title="Mark as learned">⭐</button>
+    </div>
+  </div>
+
+</div><!-- /#study -->
+
+
+<!-- ═══════════════════════════════════════
+     RESULTS
+════════════════════════════════════════ -->
+<div id="results" class="screen">
+  <div class="results-card">
+    <span class="results-emoji"   id="results-emoji">🎉</span>
+    <div  class="results-title"   id="results-title">Well done!</div>
+    <div  class="results-subtitle"id="results-subtitle">You finished the deck</div>
+
+    <div class="results-stats">
+      <div class="res-stat">
+        <div class="res-stat-num green"  id="res-correct">0</div>
+        <div class="res-stat-label" data-i18n="res_correct">CORRECT</div>
+      </div>
+      <div class="res-stat">
+        <div class="res-stat-num red"    id="res-wrong">0</div>
+        <div class="res-stat-label" data-i18n="res_learning">LEARNING</div>
+      </div>
+      <div class="res-stat">
+        <div class="res-stat-num orange" id="res-streak">0</div>
+        <div class="res-stat-label" data-i18n="res_streak">BEST STREAK</div>
+      </div>
+    </div>
+
+    <div class="results-btns">
+      <button class="res-btn primary"   id="retry-btn"                    data-i18n="btn_retry">🔁 Study again</button>
+      <button class="res-btn secondary" onclick="showScreen('home')"      data-i18n="btn_home">← Back to home</button>
+    </div>
+  </div>
+</div><!-- /#results -->
+
+
+<!-- ═══════════════════════════════════════
+     LEARNED CARDS
+════════════════════════════════════════ -->
+<div id="learned-screen" class="screen">
+  <header class="top-bar">
+    <button class="hamburger-btn" onclick="openMenu()"><span></span><span></span><span></span></button>
+    <span class="top-bar-title" data-i18n="menu_learned">Learned Cards</span>
+    <span id="learned-count-badge" class="top-bar-badge">0</span>
+  </header>
+
+  <div class="learned-list" id="learned-list"></div>
+
+  <div class="panel-actions">
+    <button class="panel-action-btn"        onclick="reintroduceAll()"  data-i18n="btn_reintro_all">🔄 Reintroduce all</button>
+    <button class="panel-action-btn danger" onclick="clearAllLearned()" data-i18n="btn_clear">🗑 Clear all</button>
+  </div>
+</div><!-- /#learned-screen -->
+
+
+<!-- ═══════════════════════════════════════
+     COURSE NOTES
+════════════════════════════════════════ -->
+<div id="notes-screen" class="screen">
+  <header class="top-bar">
+    <button class="hamburger-btn" onclick="openMenu()"><span></span><span></span><span></span></button>
+    <span class="top-bar-title" data-i18n="menu_notes">Course Notes</span>
+    <div class="top-bar-spacer"></div>
+  </header>
+
+  <div class="content-body">
+    <div class="content-hero">
+      <span class="content-hero-icon">📒</span>
+      <h2 class="content-hero-title" data-i18n="notes_title">Course Notes</h2>
+      <p class="content-hero-sub"   data-i18n="notes_sub">Materials & photos from my tutoring sessions</p>
+    </div>
+
+    <div class="notes-grid" id="notes-grid">
+      <!-- Placeholder cards — replace with real content -->
+      <div class="note-card placeholder">
+        <div class="note-card-icon">📷</div>
+        <div class="note-card-body">
+          <div class="note-card-title" data-i18n="notes_coming">Coming soon</div>
+          <div class="note-card-sub"   data-i18n="notes_coming_sub">Session notes will appear here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#notes-screen -->
+
+
+<!-- ═══════════════════════════════════════
+     BLOG
+════════════════════════════════════════ -->
+<div id="blog-screen" class="screen">
+  <header class="top-bar">
+    <button class="hamburger-btn" onclick="openMenu()"><span></span><span></span><span></span></button>
+    <span class="top-bar-title" data-i18n="menu_blog">Blog</span>
+    <div class="top-bar-spacer"></div>
+  </header>
+
+  <div class="content-body">
+    <div class="content-hero">
+      <span class="content-hero-icon">✍️</span>
+      <h2 class="content-hero-title" data-i18n="blog_title">Blog</h2>
+      <p class="content-hero-sub"   data-i18n="blog_sub">Culture, language & immersion notes</p>
+    </div>
+
+    <div class="blog-list" id="blog-list">
+      <!-- Placeholder post — replace with real entries -->
+      <div class="blog-post placeholder">
+        <div class="blog-post-meta">
+          <span class="blog-post-date">—</span>
+        </div>
+        <div class="blog-post-title" data-i18n="blog_coming">First post coming soon</div>
+        <div class="blog-post-excerpt" data-i18n="blog_coming_sub">
+          This is where you'll write about Burundian culture, language nuances, and your learning journey.
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#blog-screen -->
+
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script src="js/script.js"></script>
 </body>
 </html>
