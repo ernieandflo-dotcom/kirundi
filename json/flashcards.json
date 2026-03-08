@@ -1,0 +1,206 @@
+{
+  "categories": [
+    { "id": "food",      "name_en": "Food",                  "name_fr": "Nourriture",               "emoji": "🍎" },
+    { "id": "places",    "name_en": "Places",                "name_fr": "Lieux",                    "emoji": "🏙️" },
+    { "id": "people",    "name_en": "People",                "name_fr": "Personnes",                "emoji": "👥" },
+    { "id": "numbers",   "name_en": "Numbers",               "name_fr": "Chiffres",                 "emoji": "🔢" },
+    { "id": "time",      "name_en": "Time",                  "name_fr": "Le temps",                 "emoji": "⏰" },
+    { "id": "animals",   "name_en": "Animals",               "name_fr": "Animaux",                  "emoji": "🦁" },
+    { "id": "plants",    "name_en": "Plants",                "name_fr": "Plantes",                  "emoji": "🌿" },
+    { "id": "climate",   "name_en": "Climate",               "name_fr": "Climat",                   "emoji": "🌤️" },
+    { "id": "house",     "name_en": "House Objects",         "name_fr": "Objets de maison",         "emoji": "🏠" },
+    { "id": "school",    "name_en": "School",                "name_fr": "École",                    "emoji": "📚" },
+    { "id": "toys",      "name_en": "Toys",                  "name_fr": "Jouets",                   "emoji": "🎮" },
+    { "id": "verbs",     "name_en": "Verbs",                 "name_fr": "Verbes",                   "emoji": "⚡" },
+    { "id": "questions", "name_en": "Useful Questions",      "name_fr": "Questions utiles",         "emoji": "❓" },
+    { "id": "home_conv", "name_en": "Home Conversations",    "name_fr": "Conversations à la maison","emoji": "💬" },
+    { "id": "store",     "name_en": "Store Conversations",   "name_fr": "Conversations au magasin", "emoji": "🛒" },
+    { "id": "general",   "name_en": "General Conversations", "name_fr": "Conversations générales",  "emoji": "🗣️" },
+    { "id": "fun",       "name_en": "Fun & Funny",           "name_fr": "Fun & Drôle",              "emoji": "😄" }
+  ],
+  "cards": {
+    "food": [
+      { "en": "rice",         "fr": "riz",             "ki": "umuceri",   "pron": "oo-moo-CHEH-ree" },
+      { "en": "banana",       "fr": "banane",          "ki": "igitoke",   "pron": "ee-gee-TOH-keh" },
+      { "en": "water",        "fr": "eau",             "ki": "amazi",     "pron": "ah-MAH-zee" },
+      { "en": "milk",         "fr": "lait",            "ki": "amata",     "pron": "ah-MAH-tah" },
+      { "en": "bread",        "fr": "pain",            "ki": "ubusugi",   "pron": "oo-boo-SOO-gee" },
+      { "en": "meat",         "fr": "viande",          "ki": "inyama",    "pron": "een-YAH-mah" },
+      { "en": "bean",         "fr": "haricot",         "ki": "igiharage", "pron": "ee-gee-hah-RAH-geh" },
+      { "en": "egg",          "fr": "œuf",             "ki": "iragi",     "pron": "ee-RAH-gee" },
+      { "en": "sweet potato", "fr": "patate douce",    "ki": "ikijumbu",  "pron": "ee-kee-JOOM-boo" },
+      { "en": "salt",         "fr": "sel",             "ki": "umunyu",    "pron": "oo-MOO-nyoo" },
+      { "en": "sugar",        "fr": "sucre",           "ki": "isukari",   "pron": "ee-soo-KAH-ree" },
+      { "en": "oil",          "fr": "huile",           "ki": "amavuta",   "pron": "ah-mah-VOO-tah" },
+      { "en": "fish",         "fr": "poisson",         "ki": "ifi",       "pron": "ee-FEE" },
+      { "en": "tomato",       "fr": "tomate",          "ki": "inyanya",   "pron": "een-YAH-nyah" },
+      { "en": "onion",        "fr": "oignon",          "ki": "itungulu",  "pron": "ee-toon-GOO-loo" }
+    ],
+    "numbers": [
+      { "en": "one",      "fr": "un",      "ki": "rimwe",     "pron": "REEM-weh" },
+      { "en": "two",      "fr": "deux",    "ki": "kabiri",    "pron": "kah-BEE-ree" },
+      { "en": "three",    "fr": "trois",   "ki": "gatatu",    "pron": "gah-TAH-too" },
+      { "en": "four",     "fr": "quatre",  "ki": "kane",      "pron": "KAH-neh" },
+      { "en": "five",     "fr": "cinq",    "ki": "gatanu",    "pron": "gah-TAH-noo" },
+      { "en": "six",      "fr": "six",     "ki": "gatandatu", "pron": "gah-tahn-DAH-too" },
+      { "en": "seven",    "fr": "sept",    "ki": "indwi",     "pron": "een-DWEE" },
+      { "en": "eight",    "fr": "huit",    "ki": "inane",     "pron": "ee-NAH-neh" },
+      { "en": "nine",     "fr": "neuf",    "ki": "icenda",    "pron": "ee-CHEN-dah" },
+      { "en": "ten",      "fr": "dix",     "ki": "icumi",     "pron": "ee-CHOO-mee" },
+      { "en": "hundred",  "fr": "cent",    "ki": "ijana",     "pron": "ee-JAH-nah" },
+      { "en": "thousand", "fr": "mille",   "ki": "igihumbi",  "pron": "ee-gee-HOOM-bee" }
+    ],
+    "animals": [
+      { "en": "cow",      "fr": "vache",    "ki": "inka",      "pron": "EEN-kah" },
+      { "en": "goat",     "fr": "chèvre",   "ki": "impene",    "pron": "eem-PEH-neh" },
+      { "en": "dog",      "fr": "chien",    "ki": "imbwa",     "pron": "EEM-bwah" },
+      { "en": "cat",      "fr": "chat",     "ki": "akayabo",   "pron": "ah-kah-YAH-boh" },
+      { "en": "chicken",  "fr": "poulet",   "ki": "inkoko",    "pron": "een-KOH-koh" },
+      { "en": "lion",     "fr": "lion",     "ki": "intambwe",  "pron": "een-TAHM-bweh" },
+      { "en": "elephant", "fr": "éléphant", "ki": "inzovu",    "pron": "een-ZOH-voo" },
+      { "en": "bird",     "fr": "oiseau",   "ki": "inyoni",    "pron": "een-YOH-nee" },
+      { "en": "snake",    "fr": "serpent",  "ki": "inzoka",    "pron": "een-ZOH-kah" },
+      { "en": "monkey",   "fr": "singe",    "ki": "inkima",    "pron": "een-KEE-mah" }
+    ],
+    "verbs": [
+      { "en": "to eat",    "fr": "manger",    "ki": "kurya",   "pron": "KOO-ryah" },
+      { "en": "to drink",  "fr": "boire",     "ki": "kunywa",  "pron": "KOON-ywa" },
+      { "en": "to sleep",  "fr": "dormir",    "ki": "kuryama", "pron": "koo-RYAH-mah" },
+      { "en": "to go",     "fr": "aller",     "ki": "kuja",    "pron": "KOO-jah" },
+      { "en": "to come",   "fr": "venir",     "ki": "kuza",    "pron": "KOO-zah" },
+      { "en": "to speak",  "fr": "parler",    "ki": "kuvuga",  "pron": "koo-VOO-gah" },
+      { "en": "to see",    "fr": "voir",      "ki": "kubona",  "pron": "koo-BOH-nah" },
+      { "en": "to give",   "fr": "donner",    "ki": "guha",    "pron": "goo-HAH" },
+      { "en": "to want",   "fr": "vouloir",   "ki": "gushaka", "pron": "goo-SHAH-kah" },
+      { "en": "to work",   "fr": "travailler","ki": "gukora",  "pron": "goo-KOH-rah" },
+      { "en": "to learn",  "fr": "apprendre", "ki": "kwiga",   "pron": "KWEE-gah" },
+      { "en": "to love",   "fr": "aimer",     "ki": "gukunda", "pron": "goo-KOON-dah" }
+    ],
+    "questions": [
+      { "en": "How are you?",         "fr": "Comment vas-tu ?",        "ki": "Amakuru?",    "pron": "ah-mah-KOO-roo" },
+      { "en": "I'm fine",             "fr": "Je vais bien",            "ki": "Ni meza",     "pron": "nee MEH-zah" },
+      { "en": "What is your name?",   "fr": "Comment t'appelles-tu ?", "ki": "Witwa nde?",  "pron": "wee-TWAH ndeh" },
+      { "en": "My name is…",          "fr": "Je m'appelle…",           "ki": "Nitwa…",      "pron": "nee-TWAH" },
+      { "en": "Where are you going?", "fr": "Où vas-tu ?",             "ki": "Ugiye hehe?", "pron": "oo-GEE-yeh HEH-heh" },
+      { "en": "How much?",            "fr": "Combien ?",               "ki": "Ni angahe?",  "pron": "nee ahn-GAH-heh" },
+      { "en": "Where is…?",           "fr": "Où est… ?",               "ki": "…iri hehe?",  "pron": "ee-REE HEH-heh" },
+      { "en": "Do you understand?",   "fr": "Tu comprends ?",          "ki": "Vyumvikana?", "pron": "vyoom-vee-KAH-nah" },
+      { "en": "Please",               "fr": "S'il te plaît",           "ki": "Ndakubuye",   "pron": "ndah-koo-BOO-yeh" },
+      { "en": "Thank you",            "fr": "Merci",                   "ki": "Urakoze",     "pron": "oo-rah-KOH-zeh" },
+      { "en": "You're welcome",       "fr": "De rien",                 "ki": "Nta kibazo",  "pron": "ntah kee-BAH-zoh" },
+      { "en": "Sorry",                "fr": "Pardon",                  "ki": "Mbabarira",   "pron": "mbah-bah-REE-rah" }
+    ],
+    "places": [
+      { "en": "market",   "fr": "marché",   "ki": "isoko",     "pron": "ee-SOH-koh" },
+      { "en": "school",   "fr": "école",    "ki": "ishure",    "pron": "ee-SHOO-reh" },
+      { "en": "church",   "fr": "église",   "ki": "itorero",   "pron": "ee-toh-REH-roh" },
+      { "en": "hospital", "fr": "hôpital",  "ki": "ibitaro",   "pron": "ee-bee-TAH-roh" },
+      { "en": "house",    "fr": "maison",   "ki": "inzu",      "pron": "EEN-zoo" },
+      { "en": "city",     "fr": "ville",    "ki": "igisagara", "pron": "ee-gee-sah-GAH-rah" },
+      { "en": "road",     "fr": "route",    "ki": "inzira",    "pron": "een-ZEE-rah" },
+      { "en": "river",    "fr": "rivière",  "ki": "uruzi",     "pron": "oo-ROO-zee" },
+      { "en": "field",    "fr": "champ",    "ki": "umurima",   "pron": "oo-moo-REE-mah" }
+    ],
+    "people": [
+      { "en": "person",  "fr": "personne",   "ki": "umuntu",    "pron": "oo-MOON-too" },
+      { "en": "man",     "fr": "homme",      "ki": "umugabo",   "pron": "oo-moo-GAH-boh" },
+      { "en": "woman",   "fr": "femme",      "ki": "umugore",   "pron": "oo-moo-GOH-reh" },
+      { "en": "child",   "fr": "enfant",     "ki": "umwana",    "pron": "oom-WAH-nah" },
+      { "en": "mother",  "fr": "mère",       "ki": "mama",      "pron": "MAH-mah" },
+      { "en": "father",  "fr": "père",       "ki": "data",      "pron": "DAH-tah" },
+      { "en": "friend",  "fr": "ami(e)",     "ki": "inshuti",   "pron": "een-SHOO-tee" },
+      { "en": "teacher", "fr": "professeur", "ki": "umwigisha", "pron": "oom-wee-GEE-shah" },
+      { "en": "doctor",  "fr": "médecin",    "ki": "umuganga",  "pron": "oo-moo-GAHN-gah" }
+    ],
+    "time": [
+      { "en": "today",     "fr": "aujourd'hui", "ki": "uyu munsi",  "pron": "oo-yoo MOON-see" },
+      { "en": "tomorrow",  "fr": "demain",      "ki": "ejo hazoza", "pron": "EH-joh hah-ZOH-zah" },
+      { "en": "yesterday", "fr": "hier",        "ki": "ejo hashize","pron": "EH-joh hah-SHEE-zeh" },
+      { "en": "morning",   "fr": "matin",       "ki": "mu gitondo", "pron": "moo gee-TOHN-doh" },
+      { "en": "night",     "fr": "nuit",        "ki": "ijoro",      "pron": "ee-JOH-roh" },
+      { "en": "week",      "fr": "semaine",     "ki": "indwi",      "pron": "EEN-dwee" },
+      { "en": "month",     "fr": "mois",        "ki": "ukwezi",     "pron": "oo-KWEH-zee" },
+      { "en": "year",      "fr": "année",       "ki": "umwaka",     "pron": "oom-WAH-kah" },
+      { "en": "now",       "fr": "maintenant",  "ki": "ubu",        "pron": "OO-boo" }
+    ],
+    "house": [
+      { "en": "door",      "fr": "porte",     "ki": "umuryango", "pron": "oo-moo-RYAHN-goh" },
+      { "en": "window",    "fr": "fenêtre",   "ki": "idirishwa", "pron": "ee-dee-REESH-wah" },
+      { "en": "bed",       "fr": "lit",       "ki": "ibitanda",  "pron": "ee-bee-TAHN-dah" },
+      { "en": "chair",     "fr": "chaise",    "ki": "intebe",    "pron": "een-TEH-beh" },
+      { "en": "table",     "fr": "table",     "ki": "imeza",     "pron": "ee-MEH-zah" },
+      { "en": "kitchen",   "fr": "cuisine",   "ki": "iyogera",   "pron": "ee-yoh-GEH-rah" },
+      { "en": "fire",      "fr": "feu",       "ki": "umuriro",   "pron": "oo-moo-REE-roh" },
+      { "en": "water pot", "fr": "pot d'eau", "ki": "inkono",    "pron": "een-KOH-noh" }
+    ],
+    "school": [
+      { "en": "book",     "fr": "livre",      "ki": "igitabo",     "pron": "ee-gee-TAH-boh" },
+      { "en": "pen",      "fr": "stylo",      "ki": "ikaramu",     "pron": "ee-kah-RAH-moo" },
+      { "en": "pencil",   "fr": "crayon",     "ki": "icrayoni",    "pron": "ee-crah-YOH-nee" },
+      { "en": "notebook", "fr": "cahier",     "ki": "ikaye",       "pron": "ee-KAH-yeh" },
+      { "en": "teacher",  "fr": "enseignant", "ki": "umwigisha",   "pron": "oom-wee-GEE-shah" },
+      { "en": "student",  "fr": "élève",      "ki": "umunyeshure", "pron": "oo-moo-nyeh-SHOO-reh" },
+      { "en": "class",    "fr": "classe",     "ki": "iciswe",      "pron": "ee-CHEES-weh" },
+      { "en": "exam",     "fr": "examen",     "ki": "ikizamini",   "pron": "ee-kee-zah-MEE-nee" }
+    ],
+    "climate": [
+      { "en": "rain",         "fr": "pluie",             "ki": "imvura",   "pron": "eem-VOO-rah" },
+      { "en": "sun",          "fr": "soleil",            "ki": "izuba",    "pron": "ee-ZOO-bah" },
+      { "en": "wind",         "fr": "vent",              "ki": "umuyaga",  "pron": "oo-moo-YAH-gah" },
+      { "en": "cloud",        "fr": "nuage",             "ki": "igicu",    "pron": "ee-GEE-choo" },
+      { "en": "cold",         "fr": "froid",             "ki": "ukonje",   "pron": "oo-KOHN-jeh" },
+      { "en": "hot",          "fr": "chaud",             "ki": "ubushuhe", "pron": "oo-boo-SHOO-heh" },
+      { "en": "dry season",   "fr": "saison sèche",      "ki": "ici",      "pron": "EE-chee" },
+      { "en": "rainy season", "fr": "saison des pluies", "ki": "impeshi",  "pron": "eem-PEH-shee" }
+    ],
+    "plants": [
+      { "en": "tree",   "fr": "arbre",   "ki": "igiti",   "pron": "ee-GEE-tee" },
+      { "en": "leaf",   "fr": "feuille", "ki": "ikibabi", "pron": "ee-kee-BAH-bee" },
+      { "en": "flower", "fr": "fleur",   "ki": "imbuto",  "pron": "eem-BOO-toh" },
+      { "en": "grass",  "fr": "herbe",   "ki": "ivyatsi", "pron": "ee-VYAH-tsee" },
+      { "en": "seed",   "fr": "graine",  "ki": "imbuto",  "pron": "eem-BOO-toh" },
+      { "en": "root",   "fr": "racine",  "ki": "umuzi",   "pron": "oo-MOO-zee" }
+    ],
+    "general": [
+      { "en": "Good morning",          "fr": "Bonjour",                        "ki": "Mwaramutse",     "pron": "mwah-rah-MOO-tseh" },
+      { "en": "Good evening",          "fr": "Bonsoir",                        "ki": "Mwiriwe",        "pron": "mwee-REE-weh" },
+      { "en": "Goodbye",               "fr": "Au revoir",                      "ki": "Gira neza",      "pron": "GEE-rah NEH-zah" },
+      { "en": "Yes",                   "fr": "Oui",                            "ki": "Yego",           "pron": "YEH-goh" },
+      { "en": "No",                    "fr": "Non",                            "ki": "Oya",            "pron": "OH-yah" },
+      { "en": "I don't understand",    "fr": "Je ne comprends pas",            "ki": "Sinzi",          "pron": "SEEN-zee" },
+      { "en": "Speak slowly please",   "fr": "Parle lentement s'il te plaît",  "ki": "Vuga buhoro",    "pron": "voo-GAH boo-HOH-roh" },
+      { "en": "I am learning Kirundi", "fr": "J'apprends le Kirundi",          "ki": "Ndiga Ikirundi", "pron": "ndee-GAH ee-kee-ROON-dee" }
+    ],
+    "home_conv": [
+      { "en": "Wake up!",            "fr": "Réveille-toi !",             "ki": "Vyuka!",                           "pron": "VYOO-kah" },
+      { "en": "Breakfast is ready",  "fr": "Le petit-déjeuner est prêt", "ki": "Ifunguro rya mu gitondo rirahari", "pron": "ee-foon-GOO-roh" },
+      { "en": "Let's eat",           "fr": "Mangeons",                   "ki": "Turarya",                          "pron": "too-RAH-ryah" },
+      { "en": "Clean the house",     "fr": "Nettoie la maison",          "ki": "Sana inzu",                        "pron": "SAH-nah EEN-zoo" },
+      { "en": "Wash your hands",     "fr": "Lave-toi les mains",         "ki": "Baba intoke",                      "pron": "BAH-bah een-TOH-keh" },
+      { "en": "Go to sleep",         "fr": "Va dormir",                  "ki": "Ryama",                            "pron": "RYAH-mah" }
+    ],
+    "store": [
+      { "en": "How much does this cost?", "fr": "Ça coûte combien ?",     "ki": "Ni angahe ico?",      "pron": "nee ahn-GAH-heh EE-choh" },
+      { "en": "I want to buy",            "fr": "Je veux acheter",         "ki": "Ndashaka kugura",     "pron": "ndah-SHAH-kah koo-GOO-rah" },
+      { "en": "That is expensive",        "fr": "C'est cher",              "ki": "Birahaze",            "pron": "bee-rah-HAH-zeh" },
+      { "en": "Do you have…?",            "fr": "Avez-vous… ?",            "ki": "Mufise…?",            "pron": "moo-FEE-seh" },
+      { "en": "Give me change",           "fr": "Donnez-moi la monnaie",   "ki": "Mpere ivyo bisigaye", "pron": "mPEH-reh ee-VYOH" },
+      { "en": "Receipt please",           "fr": "Un reçu s'il vous plaît", "ki": "Impapuro yo kwishura","pron": "eem-pah-POO-roh" }
+    ],
+    "toys": [
+      { "en": "ball",    "fr": "ballon",        "ki": "umupira",     "pron": "oo-moo-PEE-rah" },
+      { "en": "game",    "fr": "jeu",           "ki": "umukino",     "pron": "oo-moo-KEE-noh" },
+      { "en": "to play", "fr": "jouer",         "ki": "gukina",      "pron": "goo-KEE-nah" },
+      { "en": "doll",    "fr": "poupée",        "ki": "igikino",     "pron": "ee-gee-KEE-noh" },
+      { "en": "toy car", "fr": "petite voiture","ki": "imodoka nto", "pron": "ee-moh-DOH-kah NTO" }
+    ],
+    "fun": [
+      { "en": "Burundi is beautiful", "fr": "Le Burundi est beau",      "ki": "Burundi ni heza",   "pron": "boo-ROON-dee nee HEH-zah" },
+      { "en": "I love Kirundi",       "fr": "J'aime le Kirundi",        "ki": "Ndakunda Ikirundi", "pron": "ndah-KOON-dah" },
+      { "en": "You are funny",        "fr": "Tu es drôle",              "ki": "Uri umusekusha",    "pron": "oo-ree oo-moo-seh-KOO-shah" },
+      { "en": "Let's dance",          "fr": "Dansons",                  "ki": "Tuvine",            "pron": "too-VEE-neh" },
+      { "en": "Tell me a story",      "fr": "Raconte-moi une histoire", "ki": "Mbwire inkuru",     "pron": "mbwee-REH een-KOO-roo" },
+      { "en": "Happy",                "fr": "Heureux / Heureuse",       "ki": "Akanyamuneza",      "pron": "ah-kah-nyah-moo-NEH-zah" }
+    ]
+  }
+}
